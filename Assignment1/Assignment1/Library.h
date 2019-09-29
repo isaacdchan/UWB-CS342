@@ -1,24 +1,34 @@
-#pragma once
+#ifndef ASS1_LIBRARY_H
+#define ASS1_LIBRARY_H
+
+#include <string>
+#include <vector>
+
+using namespace std;
 
 class Library {
+
 private:
-	static const int SHELFSIZE = 100;
-	string* shelf = new string[SHELFSIZE];
+	vector<string> shelf;
+	string libName;
+	static const int MAX = 100;
 	int numBooks = 0;
 
+	friend ostream& operator<<(ostream& Out, const Library& Lib);
+
 public:
+	explicit Library(const string& Name);
 
-	bool AddBook(const string& name) {
+	virtual ~Library();
 
-	}
-	bool RemoveBook(const string& name) {
+	bool addBook(const string& BookName);
 
-	}
-	void ListAllBooks() {
+	bool removeBook(const string& BookName);
 
-	}
-	bool IsInLibrary(const string& name) {
+	void listAllBooks() const;
 
-	}
+	bool isInLibrary(const string& BookName) const;
 
 };
+
+#endif  // ASS1_LIBRARY_H

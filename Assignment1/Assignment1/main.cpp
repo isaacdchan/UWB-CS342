@@ -1,32 +1,43 @@
-#include <iostream>
-#include <cassert>
 #include "Library.h"
+#include <cassert>
+#include <iostream>
 
 using namespace std;
 
-void Test1() {
-	Library libs("UWB");
-	libs.AddBook("Don Quixote");
-	libs.AddBook("In Search of Lost Time");
-	libs.AddBook("Ulysses");
-	libs.AddBook("The Odyssey");
-	libs.ListAllBooks();
-	bool result = libs.IsInLibrary("The Odyssey");
-	assert(result);
-	result = libs.AddBook("The Odyssey");
-	assert(!result);
-	result = libs.RemoveBook("The Odyssey");
-	assert(result);
-	result = libs.IsInLibrary("The Odyssey");
-	assert(!result);
-	result = libs.RemoveBook("The Odyssey");
-	assert(!result);
+void test1() {
+	Library Libs("UWB");
+	Libs.addBook("Don Quixote");
+	Libs.addBook("In Search of Lost Time");
+	Libs.addBook("Ulysses");
+	Libs.addBook("The Odyssey");
+	Libs.listAllBooks();
+
+	// should generate already in library message and return true
+	bool Result = Libs.isInLibrary("The Odyssey");
+	assert(Result);
+
+	// cannot add book twice, result should be false
+	Result = Libs.addBook("The Odyssey");
+	assert(!Result);
+
+	// test remove, result should be true
+	Result = Libs.removeBook("The Odyssey");
+	assert(Result);
+
+	// not in library, result should be false
+	Result = Libs.isInLibrary("The Odyssey");
+	assert(!Result);
+
+	// cannot remove twice, result should be false
+	Result = Libs.removeBook("The Odyssey");
+	assert(!Result);
 }
-void TestAll() {
-	Test1();
-	cout << "Done!" << endl;
+
+void testAll() {
+	test1();
+	cout << "Successfully completed all tests." << endl;
 }
+
 int main() {
-	TestAll();
-	return 0;
-}
+	testAll();
+}
