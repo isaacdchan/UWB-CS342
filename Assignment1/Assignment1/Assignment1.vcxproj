@@ -157,6 +157,9 @@
   <ItemGroup>
     <ClInclude Include="Library.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="simplecompile.sh" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

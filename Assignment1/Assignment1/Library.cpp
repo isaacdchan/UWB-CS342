@@ -8,6 +8,7 @@ Library::Library(const string& Name) {
 }
 
 Library::~Library() {
+	cout << "Horatio, I am dead." << endl;
 }
 
 bool Library::isInLibrary(const string& bookName) const {
@@ -38,9 +39,9 @@ bool Library::removeBook(const string& bookName) {
 	std::vector<string>::iterator it = std::find(shelf.begin(), shelf.end(), bookName);
 		
 	if (it != shelf.end()) {
-		__int64 index = distance(shelf.begin(), it);
+		int index = distance(shelf.begin(), it);
 		
-		string lastBook = shelf[__int64(numBooks)-1];
+		string lastBook = shelf[numBooks-1];
 		shelf[index] = lastBook;
 		shelf.erase(shelf.end()-1);
 		numBooks--;
