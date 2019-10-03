@@ -1,0 +1,19 @@
+Thu Oct  3 10:25:32 PDT 2019
+*** compiling with clang++ to create an executable called myprogram
+clang version 9.0.0 (tags/RELEASE_900/final)
+Target: x86_64-apple-darwin16.7.0
+Thread model: posix
+InstalledDir: /Users/pisan/homebrew/opt/llvm/bin
+*** running clang-tidy using options from .clang-tidy
+LLVM (http://llvm.org/):
+  LLVM version 9.0.0
+  Optimized build.
+  Default target: x86_64-apple-darwin16.7.0
+  Host CPU: skylake
+13884 warnings generated.
+Suppressed 13886 warnings (13884 in non-user code, 2 NOLINT).
+Use -header-filter=.* to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+*** running myprogram
+Passed all tests. Done.
+*** cleaning up, deleting myprogram
+Thu Oct  3 10:25:37 PDT 2019

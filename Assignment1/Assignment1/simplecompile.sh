@@ -1,8 +1,8 @@
 date
 
 echo "*** compiling with g++ to create an executable called myprogram"
-g++ --version
-g++ -std=c++14 -Wall -Wextra -Wno-sign-compare *.cpp -g -o myprogram
+c++ --version
+c++ -std=c++14 -Wall -Wextra -Wno-sign-compare *.cpp -g -o myprogram
 
 echo "*** running myprogram"
 
