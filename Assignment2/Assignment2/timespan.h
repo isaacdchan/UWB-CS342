@@ -4,6 +4,9 @@
 #define ASS2_TIMESPAN_H
 
 #include <iostream>
+#include <cmath>
+#include <sstream>
+#include <string>
 
 using namespace std;
 
@@ -17,6 +20,7 @@ public:
   void RemoveDecimals();
   void AggregateUnits();
   void ApplyNegatives();
+  string stringify(double value);
 
   // add
   TimeSpan operator+(const TimeSpan &Ts);

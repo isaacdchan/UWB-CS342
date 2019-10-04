@@ -1,6 +1,5 @@
 // Created by Isaac Chan on 10/3/19
 
-#include <cmath>
 #include "timespan.h"
 
 
@@ -17,9 +16,13 @@ TimeSpan::~TimeSpan() {
 }
 
 void TimeSpan::Normalize() {
+	cout << "Original -> " << Hour << ":" << Minute << ":" << Second << endl;
 	RemoveDecimals();
+	cout << "Removed Decimals -> " << Hour << ":" << Minute << ":" << Second << endl;
 	AggregateUnits();
+	cout << "Aggregated Units -> " << Hour << ":" << Minute << ":" << Second << endl;
 	ApplyNegatives();
+	cout << "Applied Negatives -> " << Hour << ":" << Minute << ":" << Second << endl;
 }
 
 void TimeSpan::RemoveDecimals() {
@@ -60,16 +63,26 @@ void TimeSpan::ApplyNegatives() {
 	}
 
 	Second == -0 ? Second = 0 : Second;
-	Minute == -0 ? Second = 0 : Minute;
-	Hour == -0 ? Second = 0 : Hour;
+	Minute == -0 ? Minute = 0 : Minute;
+	Hour == -0 ? Hour = 0 : Hour;
+}
+
+string TimeSpan::stringify(double value) {
+	stringstream ss;
+	ss << value;
+	std::string stringValue = ss.str();
+
+	value < 10 ? stringValue = "0" + stringValue : stringValue;
+
+	return stringValue;
 }
 
 TimeSpan TimeSpan::operator+(const TimeSpan &Ts) {
   double _Hour = Hour + Ts.Hour;
   double _Minute = Minute + Ts.Minute;
   double _Second = Second + Ts.Second;
-
-  TimeSpan TsSum(Hour = _Hour, _Minute = Minute, _Second = Second);
+  
+  TimeSpan TsSum(Hour = _Hour, Minute = _Minute, Second = _Second);
 
   return TsSum;
 }
@@ -79,7 +92,7 @@ TimeSpan TimeSpan::operator-(const TimeSpan &Ts) {
 	double _Minute = Minute - Ts.Minute;
 	double _Second = Second - Ts.Second;
 
-	TimeSpan TsSub(Hour = _Hour, _Minute = Minute, _Second = Second);
+	TimeSpan TsSub(Hour = _Hour, Minute = _Minute, Second = _Second);
 
 	return TsSub;
 }
@@ -89,7 +102,7 @@ TimeSpan TimeSpan::operator*(int Multiplier) {
 	double _Minute = Minute * Multiplier;
 	double _Second = Second * Multiplier;
 
-	TimeSpan TsLarge(Hour = _Hour, _Minute = Minute, _Second = Second);
+	TimeSpan TsLarge(Hour = _Hour, Minute = _Minute, Second = _Second);
 
 	return TsLarge;
 }
@@ -102,7 +115,24 @@ bool TimeSpan::operator!=(const TimeSpan &Ts) {
 	return Hour != Ts.Hour or Minute != Ts.Minute or Second != Ts.Second;
 }
 
+
 ostream& operator<<(ostream& Out, const TimeSpan& Ts) {
-	Out << Ts.Hour << ":" << Ts.Minute << ":" << Ts.Second << endl;
+	auto stringify = [](double value) {
+		stringstream ss;
+		ss << value;
+		std::string stringValue = ss.str();
+
+		value > -10 && value < 0 ? stringValue = stringValue.insert(1, "0") : stringValue;
+		value >= 0 && value < 10 ? stringValue = "0" + stringValue : stringValue;
+
+		return stringValue;
+	};
+
+	string stringHour = stringify(Ts.Hour);
+	string stringMinute = stringify(Ts.Minute);
+	string stringSecond = stringify(Ts.Second);
+
+
+	Out << stringHour << ":" << stringMinute << ":" << stringSecond;
 	return Out;
 }
