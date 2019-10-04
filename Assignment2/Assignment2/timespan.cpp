@@ -16,13 +16,9 @@ TimeSpan::~TimeSpan() {
 }
 
 void TimeSpan::Normalize() {
-	cout << "Original -> " << Hour << ":" << Minute << ":" << Second << endl;
 	RemoveDecimals();
-	cout << "Removed Decimals -> " << Hour << ":" << Minute << ":" << Second << endl;
 	AggregateUnits();
-	cout << "Aggregated Units -> " << Hour << ":" << Minute << ":" << Second << endl;
 	ApplyNegatives();
-	cout << "Applied Negatives -> " << Hour << ":" << Minute << ":" << Second << endl;
 }
 
 void TimeSpan::RemoveDecimals() {
