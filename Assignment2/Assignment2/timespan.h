@@ -12,7 +12,12 @@ class TimeSpan {
 public:
   explicit TimeSpan(double Hour = 0, double Minute = 0, double Second = 0);
   virtual ~TimeSpan();
+
   void Normalize();
+  void RemoveDecimals();
+  void AggregateUnits();
+  void ApplyNegatives();
+
   // add
   TimeSpan operator+(const TimeSpan &Ts);
   // subtract
@@ -22,7 +27,7 @@ public:
   // check if not equal
   bool operator!=(const TimeSpan &Ts);
   // multiply timespan by a number
-  TimeSpan operator*(int Number);
+  TimeSpan operator*(int Multiplier);
 private:
 	double Hour;
 	double Minute;
