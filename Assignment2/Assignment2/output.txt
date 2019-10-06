@@ -1,0 +1,18 @@
+Sun Oct  6 13:00:50 PDT 2019
+*** compiling with clang++ to create an executable called myprogram
+clang version 3.8.1-24 (tags/RELEASE_381/final)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/bin
+*** running clang-tidy using options from .clang-tidy
+LLVM (http://llvm.org/):
+  LLVM version 3.8.1
+  
+  Optimized build.
+  Built Jun  2 2017 (13:11:29).
+  Default target: x86_64-pc-linux-gnu
+  Host CPU: ivybridge
+*** running myprogram
+Passed all tests. Done.
+*** cleaning up, deleting myprogram
+Sun Oct  6 13:00:52 PDT 2019
