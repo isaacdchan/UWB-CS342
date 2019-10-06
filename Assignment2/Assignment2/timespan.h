@@ -16,11 +16,14 @@ public:
   explicit TimeSpan(double Hour = 0, double Minute = 0, double Second = 0);
   virtual ~TimeSpan();
 
+  //convert intial Hour:Minute:Second values to standard form
   void Normalize();
+  //convert decimal values in larger units to whole numbers in smaller units
   void RemoveDecimals();
+  //combine smaller units into larger units
   void AggregateUnits();
+  // remove negative values by increasing absolute value of larger units
   void ApplyNegatives();
-  string stringify(double value);
 
   // add
   TimeSpan operator+(const TimeSpan &Ts);

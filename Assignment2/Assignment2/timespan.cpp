@@ -2,7 +2,6 @@
 
 #include "timespan.h"
 
-
 TimeSpan::TimeSpan(double Hour, double Minute, double Second) {
 	this->Hour = Hour;
 	this->Minute = Minute;
@@ -63,22 +62,12 @@ void TimeSpan::ApplyNegatives() {
 	Hour == -0 ? Hour = 0 : Hour;
 }
 
-string TimeSpan::stringify(double value) {
-	stringstream ss;
-	ss << value;
-	std::string stringValue = ss.str();
-
-	value < 10 ? stringValue = "0" + stringValue : stringValue;
-
-	return stringValue;
-}
-
 TimeSpan TimeSpan::operator+(const TimeSpan &Ts) {
   double _Hour = Hour + Ts.Hour;
   double _Minute = Minute + Ts.Minute;
   double _Second = Second + Ts.Second;
-  
-  TimeSpan TsSum(Hour = _Hour, Minute = _Minute, Second = _Second);
+
+  TimeSpan TsSum(_Hour, _Minute, _Second);
 
   return TsSum;
 }
@@ -88,7 +77,7 @@ TimeSpan TimeSpan::operator-(const TimeSpan &Ts) {
 	double _Minute = Minute - Ts.Minute;
 	double _Second = Second - Ts.Second;
 
-	TimeSpan TsSub(Hour = _Hour, Minute = _Minute, Second = _Second);
+	TimeSpan TsSub(_Hour, _Minute, _Second);
 
 	return TsSub;
 }
@@ -98,7 +87,7 @@ TimeSpan TimeSpan::operator*(int Multiplier) {
 	double _Minute = Minute * Multiplier;
 	double _Second = Second * Multiplier;
 
-	TimeSpan TsLarge(Hour = _Hour, Minute = _Minute, Second = _Second);
+	TimeSpan TsLarge(_Hour, _Minute, _Second);
 
 	return TsLarge;
 }
@@ -127,7 +116,6 @@ ostream& operator<<(ostream& Out, const TimeSpan& Ts) {
 	string stringHour = stringify(Ts.Hour);
 	string stringMinute = stringify(Ts.Minute);
 	string stringSecond = stringify(Ts.Second);
-
 
 	Out << stringHour << ":" << stringMinute << ":" << stringSecond;
 	return Out;
