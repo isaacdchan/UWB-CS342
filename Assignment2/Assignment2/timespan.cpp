@@ -6,100 +6,64 @@ TimeSpan::TimeSpan(double Hour, double Minute, double Second) {
 	this->Hour = Hour;
 	this->Minute = Minute;
 	this->Second = Second;
-
-	Normalize();
+	
+	this->totalSeconds = 0;
+	CalculateSeconds();
+	AggregateSeconds();
 }
 
 TimeSpan::~TimeSpan() {
 	//cout << "Horatio, I am dead." << endl;
 }
 
-void TimeSpan::Normalize() {
-	RemoveDecimals();
-	AggregateUnits();
-	ApplyNegatives();
+void TimeSpan::CalculateSeconds() {
+	totalSeconds += Second;
+	totalSeconds += Hour * 3600;
+	totalSeconds += Minute * 60;
 }
 
-void TimeSpan::RemoveDecimals() {
-	double hourDecimal = std::fmod(Hour, 1);
-	if (hourDecimal != 0) {
-		Hour = floor(Hour);
-		Minute += (hourDecimal * 60);
-	}
-	double minuteDecimal = std::fmod(Minute, 1);
-	if (minuteDecimal != 0) {
-		Minute = floor(Minute);
-		Second += (minuteDecimal * 60);
-		Second = floor(Second);
-	}
-}
+void TimeSpan::AggregateSeconds() {
+	Minute = (int)totalSeconds / 60;
+	Second = std::fmod(totalSeconds, 60.0);
 
-void TimeSpan::AggregateUnits() {
-	double minFromSec = (int)Second / 60;
-	double remainingSec = std::fmod(Second, 60.0);
+	Hour = (int)Minute / 60;
+	Minute = std::fmod(Minute, 60.0);
 
-	Minute += minFromSec;
-	double hourFromMin = (int)Minute / 60;
-	double remaningMin = std::fmod(Minute, 60.0);
-
-	Hour += hourFromMin;
-	Minute = remaningMin;
-	Second = remainingSec;
-}
-
-void TimeSpan::ApplyNegatives() {
-	if (Second < 0) {
-		Minute -= 1;
-		Second = 60 + Second;
-	}
-	if (Minute < 0) {
-		Hour -= 1;
-		Minute = 60 + Minute;
-	}
-
-	Second == -0 ? Second = 0 : Second;
-	Minute == -0 ? Minute = 0 : Minute;
-	Hour == -0 ? Hour = 0 : Hour;
+	Minute = abs(Minute);
+	Second = floor(abs(Second));
 }
 
 TimeSpan TimeSpan::operator+(const TimeSpan &Ts) {
-  double _Hour = Hour + Ts.Hour;
-  double _Minute = Minute + Ts.Minute;
-  double _Second = Second + Ts.Second;
+  double Sum = totalSeconds + Ts.totalSeconds;
 
-  TimeSpan TsSum(_Hour, _Minute, _Second);
+  TimeSpan TsSum(0, 0, Sum);
 
   return TsSum;
 }
 
 TimeSpan TimeSpan::operator-(const TimeSpan &Ts) {
-	double _Hour = Hour - Ts.Hour;
-	double _Minute = Minute - Ts.Minute;
-	double _Second = Second - Ts.Second;
+	double Difference = totalSeconds - Ts.totalSeconds;
 
-	TimeSpan TsSub(_Hour, _Minute, _Second);
+	TimeSpan TsSum(0, 0, Difference);
 
-	return TsSub;
+	return TsSum;
 }
 
 TimeSpan TimeSpan::operator*(int Multiplier) {
-	double _Hour = Hour * Multiplier;
-	double _Minute = Minute * Multiplier;
-	double _Second = Second * Multiplier;
+	double Product = totalSeconds * Multiplier;
 
-	TimeSpan TsLarge(_Hour, _Minute, _Second);
+	TimeSpan TsSum(0, 0, Product);
 
-	return TsLarge;
+	return TsSum;
 }
 
 bool TimeSpan::operator==(const TimeSpan &Ts) {
-	return Hour == Ts.Hour && Minute == Ts.Minute && Second == Ts.Second;
+	return totalSeconds == Ts.totalSeconds;
 }
 
 bool TimeSpan::operator!=(const TimeSpan &Ts) {
-	return Hour != Ts.Hour or Minute != Ts.Minute or Second != Ts.Second;
+	return totalSeconds != Ts.totalSeconds;
 }
-
 
 ostream& operator<<(ostream& Out, const TimeSpan& Ts) {
 	auto stringify = [](double value) {
@@ -116,6 +80,10 @@ ostream& operator<<(ostream& Out, const TimeSpan& Ts) {
 	string stringHour = stringify(Ts.Hour);
 	string stringMinute = stringify(Ts.Minute);
 	string stringSecond = stringify(Ts.Second);
+
+	if (Ts.totalSeconds < 0 && stringHour[0] != '-') {
+		stringHour = "-" + stringHour;
+	}
 
 	Out << stringHour << ":" << stringMinute << ":" << stringSecond;
 	return Out;

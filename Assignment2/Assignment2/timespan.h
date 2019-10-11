@@ -16,14 +16,10 @@ public:
   explicit TimeSpan(double Hour = 0, double Minute = 0, double Second = 0);
   virtual ~TimeSpan();
 
-  //convert intial Hour:Minute:Second values to standard form
-  void Normalize();
   //convert decimal values in larger units to whole numbers in smaller units
-  void RemoveDecimals();
+  void CalculateSeconds();
   //combine smaller units into larger units
-  void AggregateUnits();
-  // remove negative values by increasing absolute value of larger units
-  void ApplyNegatives();
+  void AggregateSeconds();
 
   // add
   TimeSpan operator+(const TimeSpan &Ts);
@@ -35,10 +31,12 @@ public:
   bool operator!=(const TimeSpan &Ts);
   // multiply timespan by a number
   TimeSpan operator*(int Multiplier);
+
 private:
 	double Hour;
 	double Minute;
 	double Second;
+	double totalSeconds;
 };
 
 #endif //ASS2_TIMESPAN_H
