@@ -21,4 +21,3 @@ CheckOptions:
  - { key: readability-identifier-naming.PublicMethodCase,    value: camelBack  }
  - { key: readability-identifier-naming.PrivateMethodCase,   value: camelBack  }
  - { key: readability-identifier-naming.PublicMemberCase,    value: CamelCase  } 
-...
