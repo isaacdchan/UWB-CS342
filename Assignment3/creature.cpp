@@ -1,7 +1,7 @@
 #include "creature.h"
 
-ostream& operator<<(ostream& Out, const Creature& C) {
-	Out << "(" << C.Row << ", " << C.Col << ")";
+ostream& operator<<(ostream& Out, const Creature& Creature) {
+	Out << "(" << Creature.Row << ", " << Creature.Col << ")";
 	return Out;
 }
 
