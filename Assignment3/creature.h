@@ -6,8 +6,8 @@
 #define ASS3_CREATURE_H
 
 #include "maze.h"
-#include <ostream>
 #include <iostream>
+#include <ostream>
 
 using namespace std;
 

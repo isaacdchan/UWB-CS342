@@ -37,5 +37,7 @@
     <Text Include="output.txt" />
     <Text Include="maze1.txt" />
     <Text Include="maze2.txt" />
+    <Text Include="maze3.txt" />
+    <Text Include="maze.txt" />
   </ItemGroup>
 </Project>

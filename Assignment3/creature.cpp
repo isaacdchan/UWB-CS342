@@ -1,17 +1,14 @@
 #include "creature.h"
 
-
-
-std::ostream &operator<<(std::ostream &Out, const Creature &Creature) {
+ostream& operator<<(ostream& Out, const Creature& C) {
+	Out << "(" << C.Row << ", " << C.Col << ")";
 	return Out;
 }
 
 Creature::Creature(int Row, int Col) : Row(Row), Col(Col) {}
 
 bool Creature::atExit(const Maze &Maze) const {
-	if (Row == Maze.getExitRow() && Col == Maze.getExitColumn()) {
-		return true;
-	}
+	return Row == Maze.getExitRow() && Col == Maze.getExitColumn();
 }
 
 string Creature::solve(Maze &Maze) {
@@ -21,12 +18,12 @@ string Creature::solve(Maze &Maze) {
 }
 
 string Creature::explore(Maze& Maze) {
-	cout << "EXPLORING: " << Row << "," << Col << endl;
 	string Path = "X";
+
 
 	Maze.markAsPath(Row, Col);
 
-	if (Row == Maze.getExitRow() && Col == Maze.getExitColumn())
+	if (atExit(Maze))
 		return "";
 
 	if (Maze.isClear(Row - 1, Col)) {
@@ -48,7 +45,6 @@ string Creature::explore(Maze& Maze) {
 	}
 
 	return Path;
-
 }
 
 string Creature::goDirection(Maze& Maze, int Row, int Col, string Direction) {
@@ -77,3 +73,4 @@ string Creature::goSouth(Maze& Maze) {
 string Creature::goWest(Maze& Maze) {
 	return goDirection(Maze, 0, -1, "W");
 }
+

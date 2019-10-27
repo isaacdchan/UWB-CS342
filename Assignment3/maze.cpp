@@ -33,7 +33,6 @@ Maze::Maze(const string &FileName) {
 	for (int Row = 0; Row < Height; ++Row) {
 		for (int Col = 0; Col < Width; ++Col) {
 			InFile.get(Field[Row][Col]);
-			// cout << Row << ", " << col << ": " << field[Row][col] << endl;
 		}
 		getline(InFile, Str);
 	}
