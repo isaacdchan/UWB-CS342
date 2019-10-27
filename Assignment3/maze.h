@@ -20,11 +20,18 @@ private:
 	int Width, Height;
 	int ExitRow, ExitColumn;
 public:
+	// Maze constructor
+	// inputs file that is used to set attributes and shape of Maze
 	explicit Maze(const string &FileName);
+	// checks if location on Maze is either a wall, dead end, or traveled
 	bool isClear(int Row, int Col) const;
+	// marks location on Maze as part of route to exit
 	void markAsPath(int Row, int Col);
+	// marks location on Maze as a visited location but not part of route to exit
 	void markAsVisited(int Row, int Col);
+	// returns the row the exit location is on
 	int getExitRow() const;
+	// returns the column the exit location is on
 	int getExitColumn() const;
 };
 

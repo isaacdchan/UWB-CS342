@@ -17,9 +17,9 @@ void test() {
 	Creature C2(1, 4);
 	Creature C3(1, 1);
 
-	cout << "Path: " << C1.explore(M1) << endl;
-	cout << "Path: " << C2.explore(M2) << endl;
-    cout << "Path: " << C3.explore(M3) << endl;
+	cout << "Path: " << C1.solve(M1) << endl;
+	cout << "Path: " << C2.solve(M2) << endl;
+    cout << "Path: " << C3.solve(M3) << endl;
 	
 
 	ss << C1;
