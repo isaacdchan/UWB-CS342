@@ -13,6 +13,7 @@ using namespace std;
 enum CELL { CLEAR, WALL, PATH, VISITED };
 
 class Maze {
+	// operator overload for Maze object. returns visual representation of Maze
 	friend ostream &operator<<(ostream &Out, const Maze &Maze);
 private:
 	const static int MAX_SIZE = 100;

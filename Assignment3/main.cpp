@@ -6,6 +6,7 @@
 #include "maze.h"
 
 
+// tests 3 mazes. asserts that the creature's final location is the exit
 void test() {
 	stringstream ss;
 
@@ -37,6 +38,8 @@ void test() {
     cout << M3 << endl;
 
 }
+
+//main function
 int main() {
     test();
     cout << "Done!" << std::endl;

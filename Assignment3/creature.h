@@ -13,6 +13,7 @@ using namespace std;
 
 class Creature {
 public:
+	// operator overload for <<. returns "(Creature.Row, Creature.Col)"
 	friend ostream &operator<<(ostream &Out, const Creature &Creature);
 
 private:
@@ -36,10 +37,10 @@ public:
 	string goDirection(Maze& Maze, int Row, int Col, string Direction);
 	// moves Creature north
 	string goNorth(Maze &Maze);
-	// moves Creature south
-	string goSouth(Maze &Maze);
 	// moves Creature east
 	string goEast(Maze &Maze);
+	// moves Creature south
+	string goSouth(Maze& Maze);
 	// moves Creature west
 	string goWest(Maze &Maze);
 };
