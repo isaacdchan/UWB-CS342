@@ -1,0 +1,55 @@
+Sun Oct 27 14:58:37 PDT 2019
+*** compiling with clang++ to create an executable called myprogram
+clang version 3.8.1-24 (tags/RELEASE_381/final)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/bin
+*** running clang-tidy using options from .clang-tidy
+LLVM (http://llvm.org/):
+  LLVM version 3.8.1
+  
+  Optimized build.
+  Built Jun  2 2017 (13:11:29).
+  Default target: x86_64-pc-linux-gnu
+  Host CPU: ivybridge
+4194 warnings generated.
+8567 warnings generated.
+13149 warnings generated.
+Suppressed 13159 warnings (13149 in non-user code, 10 NOLINT).
+Use -header-filter=.* to display errors from all non-system headers.
+*** running myprogram
+Path: WWWWWWWWWW
+Path: WWWSSEESEEEENNNEEEEEESEESEEENNN
+Path: W
+xxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxx+xxxxxxxxx
+xxxxxxxxxx+xxxxxxxxx
+***********+++++++++
+xxxxxxxxxx+xxxxxxxxx
+xxxxxxxxxx+xxxxxxxxx
+xxxxxxxxxxxxxxxxxxxx
+
+
+xxxxxxxxxxxxxxxxxx*x
+x****+x*******xxxx*x
+x*xxxxx*xxxxx***xx*x
+x***xxx*xxxxxxx****x
+x x*****     xx xx x
+x xxxxxxxxxx xx    x
+xxxxxxxxxxxxxxxxxxxx
+
+
+xxxxxxxxxxxxxxxxxxxx
+**+++++++++++++++++x
+xxxxxxxxxxxxxxxxxx+x
+x++++++++++++++++++x
+x+xxxxxxxxxxxxxxxxxx
+x++++++++++++++++++x
+xxxxxxxxxxxxxxxxxx+x
+x++++++++++++++++++x
+xxxxxxxxxxxxxxxxxxxx
+
+
+Done!
+*** cleaning up, deleting myprogram
+Sun Oct 27 14:58:44 PDT 2019

@@ -22,6 +22,23 @@ template <typename T> string isOK(const T &got, const T &expected) {
   }
 }
 
+void test01() {
+	SkipList Skip;
+	stringstream Ss;
+	Ss << Skip;
+	cout << isOK(Ss.str(), "Level: 0 -- -2147483648, 2147483647, \n"s)
+		<< "Empty SkipList" << endl;
+	Skip.add(10);
+	Skip.add(30);
+	Skip.add(5);
+	Skip.add(25);
+	Ss.str("");
+	Ss << Skip;
+	cout << isOK(Ss.str(),
+		"Level: 0 -- -2147483648, 5, 10, 25, 30, 2147483647, \n"s)
+		<< "Added 10, 30, 5, 25," << endl;
+}
+
 void test02() {
   SkipList Skip(3);
   stringstream Ss;
@@ -47,22 +64,6 @@ void test02() {
   cout << isOK(Skip.contains(71), false) << "Does not contain 71" << endl;
 }
 
-void test01() {
-  SkipList Skip;
-  stringstream Ss;
-  Ss << Skip;
-  cout << isOK(Ss.str(), "Level: 0 -- -2147483648, 2147483647, \n"s)
-       << "Empty SkipList" << endl;
-  Skip.add(10);
-  Skip.add(30);
-  Skip.add(5);
-  Skip.add(25);
-  Ss.str("");
-  Ss << Skip;
-  cout << isOK(Ss.str(),
-               "Level: 0 -- -2147483648, 5, 10, 25, 30, 2147483647, \n"s)
-       << "Added 10, 30, 5, 25," << endl;
-}
 
 int main() {
   cout << "Because of the random nature of SkipList, "

@@ -61,7 +61,6 @@ string Creature::goDirection(Maze& Maze, int Row, int Col, string Direction) {
 
 	string Path = explore(Maze);
 	if (Path == "X") {
-		// moves creature back to previous position
 		this->Row -= Row;
 		this->Col -= Col;
 		return "X";
