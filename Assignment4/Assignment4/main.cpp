@@ -8,14 +8,13 @@ int TotalPassed = 0;
 int TotalTests = 0;
 
 template <typename T> string isOK(const T &got, const T &expected) {
-  ++TotalTests;
-  if (got == expected) {
-    ++TotalPassed;
-    return "OK: ";
-  } else {
-    cout << "\tGot\t" << got << "\n\texpected\t" << expected << endl;
-    return "ERR: ";
-  }
+	++TotalTests;
+	if (got == expected) {
+		++TotalPassed;
+		return "OK: ";
+	}
+	cout << "\tGot\t" << got << "\n\texpected\t" << expected << endl;
+	return "ERR: ";
 }
 
 void test01() {

@@ -76,7 +76,7 @@ SkipList::~SkipList() {
 
 // returns boolean value indiciating heads or tails
 bool SkipList::isHeads() {
-	return rand() % 2;
+	return (bool) rand() % 2;
 }
 
 // links two nodes either horizontally or vertically
@@ -121,7 +121,7 @@ void SkipList::addAbove(int currLevel, SkipList::SNode* Curr) {
 
 	SNode* topLeft = leftLinkUp->Up;
 
-	SNode* CurrCopy = new SNode(Curr->Data);
+	auto* CurrCopy = new SNode(Curr->Data);
 	insertBetweenRight(topLeft, CurrCopy);
 
 	linkSNodes(Curr, CurrCopy, "v");
@@ -146,7 +146,7 @@ bool SkipList::add(int Data) {
 	if (Curr->Data == Data)
 		return false;
 
-	SNode* newSNode = new SNode(Data);
+	auto* newSNode = new SNode(Data);
 	insertBetweenRight(Curr, newSNode);
 	Curr = Curr->Right;
 

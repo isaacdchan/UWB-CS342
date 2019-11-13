@@ -23,7 +23,8 @@ These options are defined in `.clang-tidy` file.
 
 Perform all check except the following:
 
--fuchsia-* do not need specific checks for "fuchsia" a modular, capability-based operating system
+- readability-identifier-naming: following their naming conventions would reduce code readability
+- fuchsia-* do not need specific checks for "fuchsia" a modular, capability-based operating system
 - cppcoreguidelines-pro-bounds-array-to-pointer-decay: do not give warnings on assert
 - google-build-using-namespace: for simplicity allow `using namespace std;`
 - google-readability-braces-around-statements: allow compact code without `{`
