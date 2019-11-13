@@ -6,23 +6,24 @@
 using namespace std;
 
 class SkipList {
-  // display with level
-  friend ostream &operator<<(ostream &Out, const SkipList &SkipL);
+  // displays the level and the nodes at each level 
+  friend ostream &operator<<(ostream &Out, const SkipList &Skip);
 
 private:
   // private SNode
   // defined in .cpp as SkipList::SNode::SNode(int Data) ...
   struct SNode {
+	// constructor for SNode. R, L, U, D pointers set as nullptr
     explicit SNode(int Data);
     int Data;
-    // link to Next SNode
-    SNode* Next;
-    // link to Prev SNode
-    SNode* Prev;
+    // link to Right SNode
+    SNode* Right;
+    // link to Left SNode
+    SNode* Left;
     // link to up one level
-    SNode* UpLevel;
+    SNode* Up;
     // link to down one level
-    SNode* DownLevel;
+    SNode* Down;
   };
 
   using Snode = struct Snode;
@@ -36,26 +37,30 @@ private:
   // array of Depth SNode* objects as RearGuards linking levels
   SNode** RearGuards;
 
-  // given a SNode, place it before the given NextNode
-  void addBefore(SNode* NewNode, SNode* NextNode);
-
 public:
   // default SkipList has Depth of 1, just one doubly-linked list
-  explicit SkipList(int Depth = 1);
+  explicit SkipList(int Depth=1);
 
-  // destructor
+  // destructor. deletes every node and then the front and read guard array
   virtual ~SkipList();
 
-  void insertBetweenNext(SNode* Curr, SNode* newSNode);
+  // returns boolean value indiciating heads or tails
   bool isHeads();
 
-  // returns most recent previous node with an UpLevel ptr
-  SNode* findPrevLinkUp(SNode* Curr);
+  // links two nodes either horizontally or vertically
+  void linkSNodes(SNode* SNode1, SNode* SNode2, string Direction);
 
-  void linkSNodes(SNode* SNode1, SNode* SNode2, string Direction)
+  // insert newSNode between Curr and Curr->Right
+  void insertBetweenRight(SNode* Curr, SNode* newSNode);
 
-  void addAbove(int Data);
-  // return true if successfully added, no duplicates
+  // returns the closest Left node with an Up ptr that isn't nullptr
+  SNode* findLeftLinkUp(SNode* Curr);
+
+  // checks if should add to above level based on coin flip
+  // recursively calls with incremented level until currLevel >= Depth
+  void addAbove(int currLevel, SNode* Curr);
+
+  // return true if successfully added, false if Data already exists
   bool add(int Data);
 
   // return true if successfully removed

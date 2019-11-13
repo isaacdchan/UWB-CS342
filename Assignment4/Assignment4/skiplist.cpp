@@ -6,73 +6,111 @@
 
 using namespace std;
 
-ostream &operator<<(ostream &Out, const SkipList &SkipL) {
-  return Out;
+// displays the level and the nodes at each level 
+ostream &operator<<(ostream &Out, const SkipList &Skip) {
+	// iterate from the top down
+	for (int i = Skip.Depth-1; i >= 0; i--) {
+		SkipList::SNode* Curr = Skip.FrontGuards[i];
+		Out << "LEVEL " << i << ": ";
+		// traverse right, printing node data along the way
+		while(Curr != nullptr) {
+			Out << Curr->Data << ", ";
+			Curr = Curr->Right;
+		}
+		Out << endl;
+	}
+  	return Out;
 }
 
+// constructor for SNode. R, L, U, D pointers set as nullptr
 SkipList::SNode::SNode(int Data) {
-	Data = Data;
-	Next = nullptr;
-	Prev = nullptr;
-	UpLevel = nullptr;
-	DownLevel = nullptr;
+	this->Data = Data;
+	Right = nullptr;
+	Left = nullptr;
+	Up = nullptr;
+	Down = nullptr;
 }
 
+// default SkipList has Depth of 1, just one doubly-linked list
 SkipList::SkipList(int Depth) {
+	this->Depth = Depth; 
 	FrontGuards = new SNode* [Depth];
 	RearGuards = new SNode* [Depth];
 
-	for (int i = 0; i < Depth+1; i++) {
-		FrontGuards[i] =  new SNode(INT_MAX);
+	// creates front and rear guard nodes for each level and links them
+	for (int i = 0; i < Depth; i++) {
+		FrontGuards[i] = new SNode(INT_MIN);
 		RearGuards[i] = new SNode(INT_MAX);
+
 		
-		FrontGuards[i]->Next = RearGuards[i];
-		RearGuards[i]->Prev = FrontGuards[i];
+		linkSNodes(FrontGuards[i], RearGuards[i], "h");
 	}
 
-	for (int i = 0; i < Depth i++) {
-		FrontGuards[i]->UpLevel = FrontGuards[i + 1];
-		FrontGuards[i+1]->DownLevel = FrontGuards[i];
-
-		RearGuards[i]->UpLevel = RearGuards[i + 1];
-		RearGuards[i + 1]->DownLevel = RearGuards[i];
+	// links all adjacent front guards. links all adjacent rear guards
+	for (int i = 0; i < Depth-1; i++) {
+		linkSNodes(FrontGuards[i], FrontGuards[i + 1], "v");
+		linkSNodes(RearGuards[i], RearGuards[i + 1], "v");
 	}
 }
 
-void SkipList::linkSNodes(SNode* SNode1, SNode* SNode2, string Direction) {
-	if (Direction == "horizontal") {
-		SNode1->Next = SNode2;
-		SNode2->Prev = SNode1;
+// destructor. deletes every node and then the front and read guard array
+SkipList::~SkipList() {
+	// start at the bottom
+	SNode* Curr = FrontGuards[0];
+
+	// deletes vertically, then traverses horizontally
+	while (Curr != nullptr) {
+		SNode* rightSNode = Curr->Right;
+		while (Curr != nullptr) {
+			SNode* upSNode = Curr->Up;
+			SNode* Prev = Curr;
+			Curr = upSNode;
+			delete Prev;
+		}
+		Curr = rightSNode;
 	}
-	else {
-		SNode1->UpLevel = SNode2;
-		SNode2->DownLevel = SNode1;
-	}
+
+	delete[] FrontGuards;
+	delete[] RearGuards;
 }
 
-
-
+// returns boolean value indiciating heads or tails
 bool SkipList::isHeads() {
 	return rand() % 2;
 }
 
-void SkipList::insertBetweenNext(SkipList::SNode* Curr, SkipList::SNode* newSNode) {
-	SNode* nextSNode = Curr->Next;
-	linkSNodes(Curr, newSNode, "horizontal");
-	linkSNodes(newSNode, nextSNode, "horizontal");
+// links two nodes either horizontally or vertically
+void SkipList::linkSNodes(SNode* SNode1, SNode* SNode2, string Direction) {
+	if (Direction == "h") {
+		SNode1->Right = SNode2;
+		SNode2->Left = SNode1;
+	}
+	else {
+		SNode1->Up = SNode2;
+		SNode2->Down = SNode1;
+	}
 }
 
-// top level can contain nodes other than -inf and +inf
+// insert newSNode between Curr and Curr->Right
+void SkipList::insertBetweenRight(SkipList::SNode* Curr, SkipList::SNode* newSNode) {
+	SNode* nextSNode = Curr->Right;
+	linkSNodes(Curr, newSNode, "h");
+	linkSNodes(newSNode, nextSNode, "h");
+}
+
+// returns the closest Left node with an Up ptr that isn't nullptr
 SkipList::SNode* SkipList::findLeftLinkUp(SkipList::SNode* Curr) {
 	while (Curr != nullptr) {
-		if (Curr->UpLevel != nullptr)
+		if (Curr->Up != nullptr)
 			break;
-		Curr = Curr->Prev;
+		Curr = Curr->Left;
 	}
 
 	return Curr;
 }
 
+// checks if should add to above level based on coin flip
+// recursively calls with incremented level until currLevel >= Depth
 void SkipList::addAbove(int currLevel, SkipList::SNode* Curr) {
 	if (currLevel >= Depth || isHeads())
 		return;
@@ -81,54 +119,91 @@ void SkipList::addAbove(int currLevel, SkipList::SNode* Curr) {
 	if (leftLinkUp == nullptr)
 		return;
 
-	SNode* topLeftSNode = leftLinkUp->UpLevel;
+	SNode* topLeft = leftLinkUp->Up;
 
-	SNode* CurrCopy = &SNode(Curr->Data);
-	insertBetweenNext(topLeftSNode, CurrCopy);
+	SNode* CurrCopy = new SNode(Curr->Data);
+	insertBetweenRight(topLeft, CurrCopy);
 
-	linkSNodes(Curr, CurrCopy, "vertical");
+	linkSNodes(Curr, CurrCopy, "v");
 
 	addAbove(currLevel++, CurrCopy);
 }
 
+// return true if successfully added, false if Data already exists
 bool SkipList::add(int Data) {
-	SNode* Curr = FrontGuards[0];
+	SNode* Curr = FrontGuards[Depth - 1];
 
-	while (Curr != nullptr && Data < Curr->Next->Data)
-		Curr = Curr->Next;
+	while (true) {
+		if (Data >= Curr->Right->Data)
+			Curr = Curr->Right;
+		else
+			if (Curr->Down != nullptr)
+				Curr = Curr->Down;
+			else
+				break;
+	}
 
 	if (Curr->Data == Data)
 		return false;
 
-	SNode* newSNode = &SNode(Data);
-	insertBetweenNext(Curr, newSNode);
-	Curr = Curr->Next;
+	SNode* newSNode = new SNode(Data);
+	insertBetweenRight(Curr, newSNode);
+	Curr = Curr->Right;
+
 	addAbove(0, Curr);
 
 	return true;
 }
 
-  // need to delete individual nodes
-SkipList::~SkipList() {
+// return true if successfully removed
+bool SkipList::remove(int Data) {
+	//prevents removal of front and rear guards
+	if (Data >= INT_MAX || Data <= INT_MIN)
+		return false;
+
+	SNode* Curr = FrontGuards[Depth - 1];
+
+	// finds the highest most occurence of Data
+	while (true) {
+		if (Curr->Data == Data)
+			break;
+		if (Data >= Curr->Right->Data)
+			Curr = Curr->Right;
+		else
+			if (Curr->Down != nullptr)
+				Curr = Curr->Down;
+			else
+				return false;
+	}
+
+	// traverses down connecting L and R nodes to each other
+	// then deleting self
+	while (Curr != nullptr) {
+		SNode* Prev = Curr;
+		SNode* downSNode = Curr->Down;
+		linkSNodes(Curr->Left, Curr->Right, "h");
+		Curr = downSNode;
+		delete Prev;
+	}
+
+	return true;
 }
 
-bool SkipList::remove(int Data) {
-	SNode* Curr = FrontGuards[0];
+// return true if found in SkipList
+bool SkipList::contains(int Data) {
+	SNode* Curr = FrontGuards[Depth-1];
 
-	while (Curr != nullptr && Data < Curr->Next->Data)
-		Curr = Curr->Next;
-
-	if (Curr->Data == Data) {
-		SNode* prevSNode = Curr->Prev;
-		SNode* nextSNode = Curr->Next;
-
-		prevSNode->Next = nextSNode;
-		return true;
+	while (true) {
+		if (Curr->Data == Data)
+			return true;
+		if (Data >= Curr->Right->Data)
+			Curr = Curr->Right;
+		else
+			if (Curr->Down != nullptr)
+				Curr = Curr->Down;
+			else
+				break;
 	}
 
 	return false;
-}
-
-bool SkipList::contains(int Data) {
-  return false;
 }
