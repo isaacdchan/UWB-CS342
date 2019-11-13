@@ -76,7 +76,7 @@ SkipList::~SkipList() {
 
 // returns boolean value indiciating heads or tails
 bool SkipList::isHeads() {
-	return (bool) rand() % 2;
+	return rand() % 2 == 1;
 }
 
 // links two nodes either horizontally or vertically
