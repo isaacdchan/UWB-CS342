@@ -61,8 +61,7 @@ void test02() {
   Skip.add(71);
   cout << isOK(Skip.contains(71), true) << "Contains 71" << endl;
   cout << isOK(Skip.add(71), false) << "Duplicates not allowed: 71" << endl;
-  cout << isOK(Skip.remove(71), true) << "Able to remove 71" << endl;
-  cout << isOK(Skip.contains(71), false) << "No longer contains 71" << endl;
+
 }
 
 

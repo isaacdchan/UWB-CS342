@@ -1,0 +1,56 @@
+Wed Nov 13 15:08:38 PST 2019
+*** compiling with clang++ to create an executable called myprogram
+clang version 3.8.1-24 (tags/RELEASE_381/final)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/bin
+*** running clang-tidy using options from .clang-tidy
+LLVM (http://llvm.org/):
+  LLVM version 3.8.1
+  
+  Optimized build.
+  Built Jun  2 2017 (13:11:29).
+  Default target: x86_64-pc-linux-gnu
+  Host CPU: ivybridge
+*** running myprogram
+OK: Empty SkipList
+LEVEL 0: -2147483648, 5, 10, 25, 30, 2147483647, 
+
+OK: Added 10, 30, 5, 25,
+OK: Empty SkipList of Depth=3
+	Got	LEVEL 2: -2147483648, 5, 2147483647, 
+LEVEL 1: -2147483648, 5, 10, 2147483647, 
+LEVEL 0: -2147483648, 5, 10, 25, 30, 2147483647, 
+
+	expected	LEVEL 2: -2147483648, 5, 25, 2147483647, 
+LEVEL 1: -2147483648, 5, 25, 30, 2147483647, 
+LEVEL 0: -2147483648, 5, 10, 25, 30, 2147483647, 
+
+ERR: SkipList of Depth=3 with 10, 30, 5, 25
+OK: Contains 10
+OK: Contains 30
+OK: Does not contain 71
+OK: Contains 71
+OK: Duplicates not allowed: 71
+*** running with valgrind
+OK: Empty SkipList
+LEVEL 0: -2147483648, 5, 10, 25, 30, 2147483647, 
+
+OK: Added 10, 30, 5, 25,
+OK: Empty SkipList of Depth=3
+	Got	LEVEL 2: -2147483648, 5, 2147483647, 
+LEVEL 1: -2147483648, 5, 10, 2147483647, 
+LEVEL 0: -2147483648, 5, 10, 25, 30, 2147483647, 
+
+	expected	LEVEL 2: -2147483648, 5, 25, 2147483647, 
+LEVEL 1: -2147483648, 5, 25, 30, 2147483647, 
+LEVEL 0: -2147483648, 5, 10, 25, 30, 2147483647, 
+
+ERR: SkipList of Depth=3 with 10, 30, 5, 25
+OK: Contains 10
+OK: Contains 30
+OK: Does not contain 71
+OK: Contains 71
+OK: Duplicates not allowed: 71
+*** cleaning up, deleting myprogram
+Wed Nov 13 15:08:44 PST 2019
