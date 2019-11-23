@@ -1,4 +1,4 @@
-Wed Nov 13 15:08:38 PST 2019
+Sun Nov 17 11:13:31 PST 2019
 *** compiling with clang++ to create an executable called myprogram
 clang version 3.8.1-24 (tags/RELEASE_381/final)
 Target: x86_64-pc-linux-gnu
@@ -32,6 +32,8 @@ OK: Contains 30
 OK: Does not contain 71
 OK: Contains 71
 OK: Duplicates not allowed: 71
+OK: Able to remove 71
+OK: No longer contains 71
 *** running with valgrind
 OK: Empty SkipList
 LEVEL 0: -2147483648, 5, 10, 25, 30, 2147483647, 
@@ -52,5 +54,7 @@ OK: Contains 30
 OK: Does not contain 71
 OK: Contains 71
 OK: Duplicates not allowed: 71
+OK: Able to remove 71
+OK: No longer contains 71
 *** cleaning up, deleting myprogram
-Wed Nov 13 15:08:44 PST 2019
+Sun Nov 17 11:13:38 PST 2019

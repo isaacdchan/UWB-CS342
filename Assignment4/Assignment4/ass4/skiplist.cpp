@@ -41,7 +41,6 @@ SkipList::SkipList(int Depth) {
 	for (int i = 0; i < Depth; i++) {
 		FrontGuards[i] = new SNode(INT_MIN);
 		RearGuards[i] = new SNode(INT_MAX);
-
 		
 		linkSNodes(FrontGuards[i], RearGuards[i], "h");
 	}
@@ -92,6 +91,7 @@ void SkipList::linkSNodes(SNode* SNode1, SNode* SNode2, string Direction) {
 }
 
 // insert newSNode between Curr and Curr->Right
+// TOO FUCKING LONG
 void SkipList::insertBetweenRight(SkipList::SNode* Curr, SkipList::SNode* newSNode) {
 	SNode* nextSNode = Curr->Right;
 	linkSNodes(Curr, newSNode, "h");
