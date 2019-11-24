@@ -3,13 +3,8 @@
 Bank::Bank() = default;
 Bank::~Bank() = default;
 
-Bank::Transaction::Transaction(int Account1, int Account2, string Name, char Action, int Amount) {
-	Account1 = Account1;
-	Account2 = Account2;
-	Name = Name;
-	Action = Action;
-	Amount = Amount;
-}
+Bank::Transaction::Transaction(int Account1, int Account2, string Name, char Action, int Amount)
+	: Account1(Account1), Account2(Account2), Name(Name), Action(Action), Amount(Amount) {}
 
 void Bank::convertTxtToQueue(const string & FileName) {
 	queue<Bank::Transaction> Queue = queue<Bank::Transaction>();
@@ -69,37 +64,31 @@ Bank::Transaction Bank::ConvertStringToTransaction(string line) {
 	}
 	
 	return Bank::Transaction(Account1, Account2, Name, Action, Amount);
-
 }
 
 
 void Bank::processTransactions() {
-	AccountTree Tree = AccountTree();
+	AccountTree* TreeP = new AccountTree();
 
 	while (!Queue.empty) {
 		bool res = processTransaction(Queue.front());
-
-
-
 		Queue.pop();
 	}
 
-	//Account1 = AccountFund / 10;
-	//int Fund = AccountFund % 10;
-	//Account newAccount = Account(Account, FN, LN);
-	//AccTree.insert(newAccount);
+
 }
 
 bool Bank::processTransaction(Bank::Transaction T) {
 	if (T.Action == 'O') {
-		Account A = Account(T.Account1, T.Name);
-		Tree.insert(A)
+		Account* AccountP = new Account(T.Account1, T.Name);
+		TreeP->insert(AccountP, T.Account1);
 	}
 	else if (T.Action == 'H') {
 
 	}
 	else if (T.Action == 'T') {
-
+		//Account1 = AccountFund / 10;
+		//int Fund = AccountFund % 10;
 	}
 	else {
 

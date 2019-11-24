@@ -6,3 +6,6 @@ Account::Account(int id, string Name) {
 	Name = Name;
 }
 
+int Account::GetId() {
+	return id;
+}

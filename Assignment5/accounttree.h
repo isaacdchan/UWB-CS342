@@ -14,7 +14,7 @@ public:
   ~AccountTree();
 
   // Insert new account
-  bool insert(Account* Account);
+  bool insert(Account* AccountP);
 
   // Retrieve account
   // returns true if successful AND *Account points to account
@@ -38,6 +38,6 @@ private:
     Node* Right;
     Node* Left;
   };
-  Node *Root;
+  Node* Root;
 };
 #endif // ASS5_ACCOUNTTREE_H

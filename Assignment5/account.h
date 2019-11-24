@@ -10,6 +10,7 @@ using namespace std;
 class Account {
 public:
 	Account(int id, string Name);
+	int GetId();
 private:
 	int id;
 	string Name;
