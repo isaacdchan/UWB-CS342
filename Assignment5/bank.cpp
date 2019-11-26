@@ -27,25 +27,19 @@ void Bank::ConvertTxtToQueue(const string & FileName) {
 	Errors = new vector<string>;
 	Tree = new AccountTree();
 
-	ifstream TransIn;
-	TransIn.open(FileName);
-	cout << FileName << endl;
-
+	ifstream infile(FileName);
 	string line;
-
-	while (!TransIn.eof()) {
-		TransIn >> line;
+	for (line; getline(infile, line);) {
 		ConvertStringToTransaction(line);
 	}
 }
 
 void Bank::ConvertStringToTransaction(string line) {
-	cout << line << endl;
-
 	char Action = line[0];
 	line.erase(0, 2);
 
-	int AccountInfo, ToAccount = -1;
+	int AccountInfo = -1;
+	int ToAccount = -1;
 	int Amount = 0;
 	string Name = "";
 
@@ -91,6 +85,7 @@ void Bank::ProcessQueue() {
 }
 
 void Bank::ProcessTransaction(Transaction* T) {
+	cout << T->Action << endl;
 	if (T->Action == 'O')
 		OpenAction(T);
 	else if (T->Action == 'H')
@@ -104,6 +99,7 @@ void Bank::ProcessTransaction(Transaction* T) {
 void Bank::OpenAction(Transaction* T) {
 	Account* A = new Account(T->Account, T->Name);
 	bool res = Tree->Insert(A);
+	cout << res << endl;
 	if (!res) {
 		string Error = "ERROR: Account " + to_string(A->GetId()) + " is already open. Transaction refused.";
 		Errors->push_back(Error);
@@ -130,7 +126,9 @@ void Bank::HistoryAction(Transaction* T) {
 		A->DisplayFund(Fund, "long");
 	}
 }
+//T->Account = -1!!!
 void Bank::BalanceAction(Transaction* T) {
+	cout << T->Account << endl;
 	int Id = T->Account / 10;
 	int Fund = T->Account % 10000;
 

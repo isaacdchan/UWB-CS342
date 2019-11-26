@@ -18,7 +18,7 @@ Account::Account(int Id, string Name) {
 }
 
 int Account::GetId() {
-	return Id; 
+	return this->Id;
 }
 
 bool Account::IsValidTransaction(int Fund, int Amount) {

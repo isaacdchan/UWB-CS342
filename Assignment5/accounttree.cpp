@@ -8,19 +8,27 @@ AccountTree::~AccountTree() = default;
 // Insert new account
 bool AccountTree::Insert(Account* A) { 
 	AccountTree::Node* NewNode = new AccountTree::Node(A);
-	
-	AccountTree::Node* curr = Root;
+					
+	AccountTree::Node* Curr = Root;
+	AccountTree::Node* Prev = nullptr;
 
-	while (curr != nullptr) {
-		if (A->GetId() == curr->Account->GetId())
-			return false;
-		else if (A->GetId() < curr->Account->GetId())
-			curr = curr->Left;
-		else
-			curr = curr->Right;
+	if (Curr == nullptr)
+		this->Root = NewNode;
+
+	else {
+		while (Curr != nullptr) {
+			Prev = Curr;
+			if (A->GetId() == Curr->Account->GetId())
+				return false;
+			else if (A->GetId() < Curr->Account->GetId())
+				Curr = Curr->Left;
+			else
+				Curr = Curr->Right;
+		}
+
+		Prev = NewNode; // set curr pointer to point at newNode???
 	}
-	
-	curr = NewNode; // set curr pointer to point at newNode???
+
 	return true;
 }
 
@@ -28,10 +36,13 @@ bool AccountTree::Insert(Account* A) {
 // returns true if successful AND *Account points to account
 bool AccountTree::Retrieve(const int& AccountId, Account*& Account) const {
 	stack <Node*> s;
-	s.push(Root);
+	s.push(this->Root);
 
 	while (s.top() != nullptr) {
 		Node* Curr = s.top();
+
+		cout << (int)AccountId << endl;
+		cout << (int)Curr->Account->GetId() << endl;
 
 		if ((int) Curr->Account->GetId() == AccountId) {
 			Account = Curr->Account; // set Account*& to point at Curr->Account???
