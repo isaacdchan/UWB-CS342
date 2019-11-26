@@ -4,6 +4,7 @@
 
 #include "account.h"
 #include <iostream>
+#include <stack>
 
 class AccountTree {
 public:
@@ -14,17 +15,17 @@ public:
   ~AccountTree();
 
   // Insert new account
-  bool insert(Account* AccountP);
+  bool Insert(Account* Account);
 
   // Retrieve account
   // returns true if successful AND *Account points to account
-  bool retrieve(const int &AccountNumber, Account* &Account) const;
+  bool Retrieve(const int& AccountId, Account*& Account) const;
 
   // Display information on all accounts
-  void display() const;
+  void Display() const;
 
   // delete all information in AccountTree
-  void clear();
+  void Clear();
 
   // check if tree is empty
   bool isEmpty() const;
@@ -40,4 +41,5 @@ private:
   };
   Node* Root;
 };
+
 #endif // ASS5_ACCOUNTTREE_H

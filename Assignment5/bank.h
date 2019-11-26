@@ -5,6 +5,7 @@
 #include "accounttree.h"
 #include <queue>
 #include <fstream>
+#include <sstream>
 #include <string>
 
 using namespace std;
@@ -13,26 +14,33 @@ class Bank {
 
 private:
 	struct Transaction {
-		explicit Transaction(int id1, int id2, string Name, char Action, int Amount);
-		int Account1;
-		int Account2;
+		explicit Transaction(int Account, int ToAccount, string Name, char Action, int Amount);
+		int Account;
+		int ToAccount;
 		string Name;
 		char Action;
 		int Amount;
 	};
 
-	queue<Transaction> Queue;
-	AccountTree Tree;
+	queue<Transaction*>* Queue;
+	AccountTree* Tree;
+	vector<string>* Errors;
 
 public:
 	Bank();
 	~Bank();
-	void convertTxtToQueue(const string& FileName);
-	Transaction ConvertStringToTransaction(string line);
 
-	bool processTransaction(Transaction T);
-	void processTransactions();
-	void displayAllBankBalances() const;
+	void ConvertTxtToQueue(const string& FileName);
+	void ConvertStringToTransaction(string line);
+
+	void ProcessQueue();
+	void ProcessTransaction(Transaction* T);
+
+	void OpenAction(Transaction* T);
+	void HistoryAction(Transaction* T);
+	void BalanceAction(Transaction* T);
+
+	void DisplayAllBankBalances() const;
 };
 
 
