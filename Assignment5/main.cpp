@@ -14,8 +14,7 @@ int main(int Argc, char *Argv[]) {
   //      Bank.ConvertTxtToQueue(FileName);
 		//Bank.ProcessQueue();
   //  }
-
-	Bank.ConvertTxtToQueue("C:/Users/isaac/Documents/UW Bothell/CS342/Assignment5/BankTransIn.txt");
+	Bank.ConvertTxtToQueue("C:/Users/isaac/Documents/UWB/CS342/Assignment5/BankTransIn.txt");
 	Bank.ProcessQueue();
     cout << "Done" << endl;
     return 0;

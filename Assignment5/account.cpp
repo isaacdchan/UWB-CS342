@@ -46,8 +46,7 @@ void Account::AdjustBalance(int Fund, char Action, int Amount, int ToAccount) {
 	if (!IsValid)
 		return;
 
-	if (Action == 'D')
-		Balances[Fund] += Amount;
+
 	else {
 		int Remainder = Balances[Fund] - Amount;
 		if (Remainder >= 0)

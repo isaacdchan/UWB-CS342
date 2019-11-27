@@ -41,9 +41,6 @@ bool AccountTree::Retrieve(const int& AccountId, Account*& Account) const {
 	while (s.top() != nullptr) {
 		Node* Curr = s.top();
 
-		cout << (int)AccountId << endl;
-		cout << (int)Curr->Account->GetId() << endl;
-
 		if ((int) Curr->Account->GetId() == AccountId) {
 			Account = Curr->Account; // set Account*& to point at Curr->Account???
 			return true;

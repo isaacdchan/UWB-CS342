@@ -132,7 +132,6 @@
     <ClInclude Include="account.h" />
     <ClInclude Include="accounttree.h" />
     <ClInclude Include="bank.h" />
-    <ClInclude Include="transaction.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="BankTransIn.txt" />

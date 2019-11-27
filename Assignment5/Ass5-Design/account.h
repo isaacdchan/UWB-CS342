@@ -22,11 +22,11 @@ public:
 private:
 	int Id;
 	string Name;
-	const static int* CoverFundMatch;
+	int* CoverFundMatch;
 	int* Balances;
 	vector<vector<string>*>* BalanceHistories;
 
-	const static string FundNames[10] = {
+	string FundNames[10] = {
 		"Money Market", "Prime MoneyMarket", "Long-Term Bond",
 		"Short-Term Bond", "500 Index Fund", "Capital Value Fund",
 		"Growth Equity Fund", "Growth Index Fund", "Value Fund",
