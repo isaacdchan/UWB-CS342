@@ -10,23 +10,17 @@ class AccountTree {
 public:
   // Create BST
   AccountTree();
-
   // Delete all nodes in BST
   ~AccountTree();
-
   // Insert new account
-  bool Insert(Account* Account);
-
+  bool insert(Account* Account);
   // Retrieve account
   // returns true if successful AND *Account points to account
-  bool Retrieve(const int& AccountId, Account*& Account) const;
-
+  bool retrieve(const int& AccountId, Account*& Account) const;
   // Display information on all accounts
-  void Display() const;
-
+  void display() const;
   // delete all information in AccountTree
-  void Clear();
-
+  void clear();
   // check if tree is empty
   bool isEmpty() const;
 

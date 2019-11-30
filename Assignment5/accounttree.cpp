@@ -1,32 +1,43 @@
 #include "accounttree.h"
 
-AccountTree::AccountTree() = default;
+AccountTree::AccountTree() {
+	Root = nullptr;
+};
 
 // Delete all nodes in BST
-AccountTree::~AccountTree() = default;
+AccountTree::~AccountTree() {
+	this->clear();
+}
 
 // Insert new account
-bool AccountTree::Insert(Account* A) { 
+bool AccountTree::insert(Account* A) { 
 	AccountTree::Node* NewNode = new AccountTree::Node(A);
-					
 	AccountTree::Node* Curr = Root;
 	AccountTree::Node* Prev = nullptr;
 
+	char Direction = 'L';
+
 	if (Curr == nullptr)
-		this->Root = NewNode;
+		this->Root = NewNode; 
 
 	else {
 		while (Curr != nullptr) {
 			Prev = Curr;
-			if (A->GetId() == Curr->Account->GetId())
+			if (A->getId() == Curr->Account->getId())
 				return false;
-			else if (A->GetId() < Curr->Account->GetId())
+			else if (A->getId() < Curr->Account->getId()) {
 				Curr = Curr->Left;
-			else
+				Direction = 'L';
+			}
+			else {
 				Curr = Curr->Right;
+				Direction = 'R';
+			}
 		}
-
-		Prev = NewNode; // set curr pointer to point at newNode???
+		if (Direction == 'L')
+			Prev->Left = NewNode;
+		else
+			Prev->Right = NewNode;
 	}
 
 	return true;
@@ -34,49 +45,51 @@ bool AccountTree::Insert(Account* A) {
 
 // Retrieve account
 // returns true if successful AND *Account points to account
-bool AccountTree::Retrieve(const int& AccountId, Account*& Account) const {
+bool AccountTree::retrieve(const int& AccountId, Account*& Account) const {
 	stack <Node*> s;
 	s.push(this->Root);
 
-	while (s.top() != nullptr) {
+	while ((s.size() != 0) && (s.top() != nullptr)) {
+	//while (s.top() != nullptr) {
+
 		Node* Curr = s.top();
 
-		if ((int) Curr->Account->GetId() == AccountId) {
+		if ((int) Curr->Account->getId() == AccountId) {
 			Account = Curr->Account; // set Account*& to point at Curr->Account???
 			return true;
 		}
+		
+		s.pop();
+
 		if (Curr->Left != nullptr)
 			s.push(Curr->Left);
 		if (Curr->Right != nullptr)
 			s.push(Curr->Right);
-
-		s.pop();
 	}
 
 	return false;
 }
 
 // Display information on all accounts
-void AccountTree::Display() const {
+void AccountTree::display() const {
 	stack <Node*> s;
 	s.push(Root);
 
-	while (s.top() != nullptr) {
+	while ((s.size() != 0) && (s.top() != nullptr)) {
 		Node* Curr = s.top();
-		
-		Curr->Account->Display();
+		s.pop();
+
+		Curr->Account->display();
 
 		if (Curr->Left != nullptr)
 			s.push(Curr->Left);
 		if (Curr->Right != nullptr)
 			s.push(Curr->Right);
-
-		s.pop();
 	}
 }
 
 // delete all information in AccountTree
-void AccountTree::Clear() {
+void AccountTree::clear() {
 	stack <Node*> s;
 	s.push(Root);
 
@@ -92,6 +105,8 @@ void AccountTree::Clear() {
 
 		s.pop();
 	}
+
+	Root = nullptr;
 }
 
 // check if tree is empty
