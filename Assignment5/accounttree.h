@@ -13,7 +13,7 @@ public:
   // Delete all nodes in BST
   ~AccountTree();
   // Insert new account
-  bool insert(Account* Account);
+  bool insert(Account* A);
   // Retrieve account
   // returns true if successful AND *Account points to account
   bool retrieve(const int& AccountId, Account*& Account) const;

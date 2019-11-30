@@ -22,9 +22,9 @@ Bank::Transaction::Transaction(int Account, int ToAccount, string Name, char Act
 
 void Bank::convertTxtToQueue(const string & FileName) {
 	ifstream infile(FileName);
-	string line;
-	for (line; getline(infile, line);) {
-		convertStringToTransaction(line);
+	string Line;
+	for (Line; getline(infile, Line);) {
+		convertStringToTransaction(Line);
 	}
 }
 
@@ -183,8 +183,8 @@ void Bank::displayAllBankBalances() const {
 void Bank::displayErrors() const {
 	stringstream ss;
 
-	for (int i = 0; i < Errors->size(); i++)
-		ss << (*Errors)[i] << endl;
+	for (auto Error: *Errors)
+		ss << Error << endl;
 
 	cout << ss.str();
 }

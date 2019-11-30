@@ -2,6 +2,7 @@
 These options are defined in `.clang-tidy` file.
 
 Perform all check except the following:
+- readability-identifier-naming.VariableCase: keep naming consistent with starter
 - readability-identifier-naming.ClassCase: keep naming consistent with starter
 - readability-identifier-naming.ParameterCase: keep naming consistent with starter
 - fuchsia-* do not need specific checks for "fuchsia" a modular, capability-based operating system
