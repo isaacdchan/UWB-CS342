@@ -110,7 +110,7 @@ void Bank::openAction(const Transaction* const T) {
 	Account* A = new Account(T->Account, T->Name);
 	bool res = Tree->insert(A);
 	if (!res) {
-		string Error = "ERROR: Account " + to_string(A->getId()) + " is already open. Transaction refused.";
+		string Error = "ERROR: Account " + to_string(A->getId()) + " is already open. Transaction refused";
 		Errors->push_back(Error);
 	}
 }
@@ -119,7 +119,7 @@ void Bank::historyAction(const Transaction* const T) {
 	if (T->Account < 10000) {
 		Account* A;
 		bool res = Tree->retrieve(T->Account, A);
-		A->display();
+		A->displayAccount();
 	}
 	// asking for specific fund history
 	else {
