@@ -9,10 +9,14 @@ AccountTree::~AccountTree() {
 	this->clear();
 }
 
+AccountTree::Node::~Node() {
+	delete Account;
+}
+
 // Insert new account
 bool AccountTree::insert(Account* A) { 
 	AccountTree::Node* NewNode = new AccountTree::Node(A);
-	AccountTree::Node* Curr = Root;
+	AccountTree::Node* Curr = this->Root;
 	AccountTree::Node* Prev = nullptr;
 
 	char Direction = 'L';
@@ -50,8 +54,6 @@ bool AccountTree::retrieve(const int& AccountId, Account*& Account) const {
 	s.push(this->Root);
 
 	while ((s.size() != 0) && (s.top() != nullptr)) {
-	//while (s.top() != nullptr) {
-
 		Node* Curr = s.top();
 
 		if ((int) Curr->Account->getId() == AccountId) {
@@ -79,7 +81,7 @@ void AccountTree::display() const {
 		Node* Curr = s.top();
 		s.pop();
 
-		Curr->Account->display();
+		Curr->Account->displayAccount();
 
 		if (Curr->Left != nullptr)
 			s.push(Curr->Left);
@@ -93,8 +95,9 @@ void AccountTree::clear() {
 	stack <Node*> s;
 	s.push(Root);
 
-	while (s.top() != nullptr) {
+	while (s.size() != 0 && s.top() != nullptr) {
 		Node* Curr = s.top();
+		s.pop();
 
 		if (Curr->Left != nullptr)
 			s.push(Curr->Left);
@@ -103,7 +106,6 @@ void AccountTree::clear() {
 
 		delete Curr;
 
-		s.pop();
 	}
 
 	Root = nullptr;

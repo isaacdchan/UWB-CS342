@@ -7,9 +7,9 @@ Bank::Bank() {
 };
 
 Bank::~Bank() {
-	delete[] Queue;
-	delete[] Errors;
-	delete[] Tree;
+	Errors->clear();
+	*Queue = {};
+	delete Tree;
 }
 
 Bank::Transaction::Transaction(int Account, int ToAccount, string Name, char Action, int Amount) {

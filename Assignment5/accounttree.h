@@ -29,6 +29,7 @@ private:
   public:
     explicit Node(Account* Account)
         : Account{Account}, Right{nullptr}, Left{nullptr} {};
+	~Node();
     Account* Account;
     Node* Right;
     Node* Left;

@@ -22,7 +22,7 @@ Account::Account(int Id, string Name) {
 Account::~Account() {
 	delete[] CoverFundMatch;
 	delete[] Balances;
-	delete[] BalanceHistories;
+	BalanceHistories->clear();
 }
 
 int Account::getId() const {
