@@ -11,7 +11,7 @@ int main(int Argc, char *Argv[]) {
 	
 	for (int i = 1; i < Argc; ++I) {
 		cout << "The command line argument(s) was " << Argv[i] << std::endl;
-		string FileName = Argv[I];
+		string FileName = Argv[i];
 		Bank.convertTxtToQueue(FileName);
 		Bank.processQueue();
 		Bank.displayErrors();
