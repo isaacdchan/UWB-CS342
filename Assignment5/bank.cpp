@@ -8,7 +8,7 @@ Bank::Bank() {
 
 Bank::~Bank() {
 	Errors->clear();
-	*Queue = {};
+	*Queue = queue<Bank::Transaction*>();
 	delete Tree;
 }
 
