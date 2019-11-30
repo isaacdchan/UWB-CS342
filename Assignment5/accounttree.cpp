@@ -79,7 +79,7 @@ void AccountTree::display() const {
 		Node* Curr = s.top();
 		s.pop();
 
-		Curr->Account->displayAccount();
+		Curr->Account->display();
 
 		if (Curr->Left != nullptr)
 			s.push(Curr->Left);
