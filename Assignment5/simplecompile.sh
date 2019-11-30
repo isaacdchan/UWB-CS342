@@ -12,8 +12,8 @@ echo "*** running myprogram"
 ./myprogram
 
 # valgrind will detect memory leaks
-echo "*** running with valgrind"
-valgrind ./myprogram BankTransIn.txt
+# echo "*** running with valgrind"
+# valgrind ./myprogram BankTransIn.txt
 
 echo "*** cleaning up, deleting myprogram"
 rm myprogram
