@@ -47,4 +47,15 @@
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="READMD.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include=".clang-tidy">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="simplecompile.sh">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
