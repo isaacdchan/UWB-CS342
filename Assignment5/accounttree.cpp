@@ -22,7 +22,7 @@ bool AccountTree::insert(Account* A) {
 	char Direction = 'L';
 
 	if (Curr == nullptr)
-		this->Root = NewNode; 
+		this->Root = NewNode;
 
 	else {
 		while (Curr != nullptr) {
@@ -93,10 +93,11 @@ void AccountTree::display() const {
 // delete all information in AccountTree
 void AccountTree::clear() {
 	stack <Node*> s;
+	Node* Curr;
 	s.push(Root);
 
 	while (!s.empty() && s.top() != nullptr) {
-		Node* Curr = s.top();
+		Curr = s.top();
 		s.pop();
 
 		if (Curr->Left != nullptr)
@@ -105,7 +106,6 @@ void AccountTree::clear() {
 			s.push(Curr->Right);
 
 		delete Curr;
-
 	}
 
 	Root = nullptr;

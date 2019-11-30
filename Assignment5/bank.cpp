@@ -23,9 +23,8 @@ Bank::Transaction::Transaction(int Account, int ToAccount, string Name, char Act
 void Bank::convertTxtToQueue(const string & FileName) {
 	ifstream infile(FileName);
 	string Line;
-	for (Line; getline(infile, Line);) {
+	for (Line; getline(infile, Line);)
 		convertStringToTransaction(Line);
-	}
 }
 
 void Bank::convertStringToTransaction(string& Line) {

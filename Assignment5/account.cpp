@@ -22,6 +22,8 @@ Account::Account(int Id, string Name) {
 Account::~Account() {
 	delete[] CoverFundMatch;
 	delete[] Balances;
+	for (auto BalanceHistory : *BalanceHistories)
+		BalanceHistory->clear();
 	BalanceHistories->clear();
 }
 
