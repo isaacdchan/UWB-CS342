@@ -122,6 +122,6 @@ void Account::buildFundHistory(ostream& ss, int Fund) {
 
 	ss << FundNames[Fund] << ": $" << Balances[Fund] << endl;
 
-	for (int j = 0; j < (int)BalanceHistory->size(); j++)
-		ss << "\t" << (*BalanceHistory)[j] << endl;
+	for (auto Record: *BalanceHistory)
+		ss << "\t" << Record << endl;
 }

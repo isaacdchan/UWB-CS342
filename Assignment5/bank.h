@@ -1,11 +1,12 @@
 #ifndef ASS5_BANK_H
 #define ASS5_BANK_H
 
-#include "accounttree.h"
 #include <fstream>
 #include <queue>
 #include <sstream>
 #include <string>
+
+#include "accounttree.h"
 
 using namespace std;
 
