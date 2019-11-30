@@ -2,8 +2,8 @@
 #define ASS5_BANK_H
 
 #include "accounttree.h"
-#include <queue>
 #include <fstream>
+#include <queue>
 #include <sstream>
 #include <string>
 
@@ -39,7 +39,7 @@ public:
 	// then pushes transaction to queue
 	void convertTxtToQueue(const string& FileName);
 	// breakds down line string to action, amount, account/fund and other info
-	void convertStringToTransaction(string& line);
+	void convertStringToTransaction(string& Line);
 
 	// iterate over queue, handling each transaction
 	void processQueue();

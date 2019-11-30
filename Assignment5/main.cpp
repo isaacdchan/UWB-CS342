@@ -9,8 +9,8 @@ using namespace std;
 int main(int Argc, char *Argv[]) {
     Bank Bank;
 	
-	for (int I = 1; I < Argc; ++I) {
-		cout << "The command line argument(s) was " << Argv[I] << std::endl;
+	for (int i = 1; i < Argc; ++I) {
+		cout << "The command line argument(s) was " << Argv[i] << std::endl;
 		string FileName = Argv[I];
 		Bank.convertTxtToQueue(FileName);
 		Bank.processQueue();

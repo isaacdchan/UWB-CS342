@@ -4,8 +4,8 @@
 
 #include <fstream>
 #include <iostream>
-#include <string>
 #include <sstream>
+#include <string>
 #include <vector>
 
 using namespace std;
@@ -41,7 +41,7 @@ public:
 	// checks if fund and coverfund (if exists) has enough for withdraw
 	bool isValidTransaction(int Fund, char Action, int Amount) const;
 	// logs transaction in account then adjusts fund balance if valid
-	void adjustBalance(int Fund, char Action, int Amount, int ToAcc);
+	void adjustBalance(int Fund, char Action, int Amount, int ToAccount);
 	// adds fund transaction to BalanceHistories[Fund]
 	void addRecord(int Fund, char Action, int Amount, int ToAccount, bool IsValid);
 	// lists account name, id, and then balance and balance history for each fund

@@ -15,7 +15,7 @@ AccountTree::Node::~Node() {
 
 // Insert new account
 bool AccountTree::insert(Account* A) { 
-	AccountTree::Node* NewNode = new AccountTree::Node(A);
+	auto NewNode = new AccountTree::Node(A);
 	AccountTree::Node* Curr = this->Root;
 	AccountTree::Node* Prev = nullptr;
 
@@ -53,7 +53,7 @@ bool AccountTree::retrieve(const int& AccountId, Account*& Account) const {
 	stack <Node*> s;
 	s.push(this->Root);
 
-	while ((s.size() != 0) && (s.top() != nullptr)) {
+	while ((!s.empty()) && (s.top() != nullptr)) {
 		Node* Curr = s.top();
 
 		if ((int) Curr->Account->getId() == AccountId) {
@@ -77,7 +77,7 @@ void AccountTree::display() const {
 	stack <Node*> s;
 	s.push(Root);
 
-	while ((s.size() != 0) && (s.top() != nullptr)) {
+	while ((!s.empty()) && (s.top() != nullptr)) {
 		Node* Curr = s.top();
 		s.pop();
 
@@ -95,7 +95,7 @@ void AccountTree::clear() {
 	stack <Node*> s;
 	s.push(Root);
 
-	while (s.size() != 0 && s.top() != nullptr) {
+	while (!s.empty() && s.top() != nullptr) {
 		Node* Curr = s.top();
 		s.pop();
 
