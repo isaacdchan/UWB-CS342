@@ -1,15 +1,15 @@
 #include "bank.h"
 
 Bank::Bank() {
+	Tree = new AccountTree();
 	Queue = new queue<Bank::Transaction>();
 	Errors = new vector<string>;
-	Tree = new AccountTree();
 };
 
 Bank::~Bank() {
-	Errors->clear();
-	*Queue = queue<Bank::Transaction>();
 	delete Tree;
+	*Queue = queue<Bank::Transaction>();
+	Errors->clear();
 }
 
 Bank::Transaction::Transaction(int Account, int ToAccount, string Name, char Action, int Amount) {
