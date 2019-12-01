@@ -13,7 +13,7 @@ echo "*** running myprogram"
 
 # valgrind will detect memory leaks
 echo "*** running with valgrind"
-valgrind --leak-check=full ./myprogram BankTransIn.txtr
+valgrind --leak-check=full ./myprogram BankTransIn.txt
 
 echo "*** cleaning up, deleting myprogram"
 rm myprogram
