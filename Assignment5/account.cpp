@@ -21,9 +21,13 @@ Account::Account(int Id, string Name) {
 
 Account::~Account() {
 	delete[] Balances;
-	for (auto BalanceHistory : *BalanceHistories)
+	for (auto BalanceHistory : *BalanceHistories) {
 		BalanceHistory->clear();
+		delete BalanceHistory;
+	}
+	
 	BalanceHistories->clear();
+	delete BalanceHistories;
 }
 
 int Account::getId() const {
