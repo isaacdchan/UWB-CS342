@@ -110,6 +110,7 @@ void Bank::openAction(const Transaction& T) {
 	if (!res) {
 		string Error = "ERROR: Account " + to_string(A->getId()) + " is already open. Transaction refused";
 		Errors->push_back(Error);
+		delete A;
 	}
 }
 void Bank::historyAction(const Transaction& T) {
