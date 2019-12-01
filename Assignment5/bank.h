@@ -24,7 +24,7 @@ private:
 	};
 
 	// stores order of transactions to process
-	queue<Transaction*>* Queue;
+	queue<Transaction>* Queue;
 	// tree structure which stores accounts
 	AccountTree* Tree;
 	// account based errors (no account found, dupplicate accounts)
@@ -45,16 +45,16 @@ public:
 	// iterate over queue, handling each transaction
 	void processQueue();
 	// helper function to log which transaction the bank is processing
-	void logTransaction(const Transaction* const T) const;
+	void logTransaction(const Transaction& T) const;
 	// diverts transaction to action handlers
-	void processTransaction(const Transaction* const T);
+	void processTransaction(const Transaction& T);
 
 	// opens new account and inserts into tree
-	void openAction(const Transaction* const T);
+	void openAction(const Transaction& T);
 	// logs whole account history or specific fund history
-	void historyAction(const Transaction* const T);
+	void historyAction(const Transaction& T);
 	// adjusts the balance of an account
-	void balanceAction(const Transaction* const T);
+	void balanceAction(const Transaction& T);
 
 	// traverse accounttree, displaying each account
 	void displayAllBankBalances() const;

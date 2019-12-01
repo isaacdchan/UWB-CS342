@@ -1,14 +1,14 @@
 #include "bank.h"
 
 Bank::Bank() {
-	Queue = new queue<Bank::Transaction*>();
+	Queue = new queue<Bank::Transaction>();
 	Errors = new vector<string>;
 	Tree = new AccountTree();
 };
 
 Bank::~Bank() {
 	Errors->clear();
-	*Queue = queue<Bank::Transaction*>();
+	*Queue = queue<Bank::Transaction>();
 	delete Tree;
 }
 
@@ -72,57 +72,56 @@ void Bank::convertStringToTransaction(string& Line) {
 				Amount = stoi(Line.substr(0, Line.size()));
 	}
 
-	Queue->push(new Transaction(AccountInfo, ToAccount, Name, Action, Amount));
+	Queue->push(Transaction(AccountInfo, ToAccount, Name, Action, Amount));
 }
 
 void Bank::processQueue() {
 	while (!Queue->empty()) {
-		Transaction* currTransaction = Queue->front();
+		Transaction currTransaction = Queue->front();
 		processTransaction(currTransaction);
 
-		delete currTransaction;
 		Queue->pop();
 	}
 }
 
-void Bank::logTransaction(const Transaction* const T) const {
+void Bank::logTransaction(const Transaction& T) const {
 	cout << "Processing Transaction:" << endl;
-	cout << "Action: " << T->Action << endl;
-	cout << "Account1: " << T->Account << endl;
-	cout << "Account2: " << T->ToAccount << endl;
-	cout << "Name: " << T->Name << endl;
-	cout << "Amount: " << T->Amount << endl;
+	cout << "Action: " << T.Action << endl;
+	cout << "Account1: " << T.Account << endl;
+	cout << "Account2: " << T.ToAccount << endl;
+	cout << "Name: " << T.Name << endl;
+	cout << "Amount: " << T.Amount << endl;
 	cout << "-------------" << endl;
 }
 
-void Bank::processTransaction(const Transaction* const T) {
-	//logTransaction(T);
-	if (T->Action == 'O')
+void Bank::processTransaction(const Transaction& T) {
+	logTransaction(T);
+	if (T.Action == 'O')
 		openAction(T);
-	else if (T->Action == 'H')
+	else if (T.Action == 'H')
 		historyAction(T);
 	else
 		balanceAction(T);
 }
 
-void Bank::openAction(const Transaction* const T) {
-	Account* A = new Account(T->Account, T->Name);
+void Bank::openAction(const Transaction& T) {
+	Account* A = new Account(T.Account, T.Name);
 	bool res = Tree->insert(A);
 	if (!res) {
 		string Error = "ERROR: Account " + to_string(A->getId()) + " is already open. Transaction refused";
 		Errors->push_back(Error);
 	}
 }
-void Bank::historyAction(const Transaction* const T) {
+void Bank::historyAction(const Transaction& T) {
 	// asking for whole account history
-	if (T->Account < 10000) {
+	if (T.Account < 10000) {
 		Account* A;
-		bool res = Tree->retrieve(T->Account, A);
+		bool res = Tree->retrieve(T.Account, A);
 		A->displayAccount();
 	}
 	// asking for specific fund history
 	else {
-		int AccountId = T->Account / 10;
+		int AccountId = T.Account / 10;
 		Account* A;
 		bool res = Tree->retrieve(AccountId, A);
 
@@ -133,15 +132,15 @@ void Bank::historyAction(const Transaction* const T) {
 		}
 
 
-		int Fund = T->Account % 10;
+		int Fund = T.Account % 10;
 		A->displayFund(Fund);
 	}
 }
-//T->Account = -1!!!
+//T.Account = -1!!!
 // are transfers between accounts allowed?
-void Bank::balanceAction(const Transaction* const T) {
-	int Id = T->Account / 10;
-	int Fund = T->Account % 10;
+void Bank::balanceAction(const Transaction& T) {
+	int Id = T.Account / 10;
+	int Fund = T.Account % 10;
 
 	Account* A;
 	bool res = Tree->retrieve(Id, A);
@@ -152,16 +151,16 @@ void Bank::balanceAction(const Transaction* const T) {
 	}
 
 	// for Transfers, will first try withdrawing funds
-	A->adjustBalance(Fund, T->Action, T->Amount, T->ToAccount);
+	A->adjustBalance(Fund, T.Action, T.Amount, T.ToAccount);
 
-	if (T->Action == 'T') {
+	if (T.Action == 'T') {
 		// if not enough funds, end Action. Don't deposit
-		if (!A->isValidTransaction(Fund, T->Action, T->Amount))
+		if (!A->isValidTransaction(Fund, T.Action, T.Amount))
 			return;
 
 		Account* ToAccount;
-		int ToId = T->ToAccount / 10;
-		int ToFund = T->ToAccount % 10;
+		int ToId = T.ToAccount / 10;
+		int ToFund = T.ToAccount % 10;
 
 		//check if the ToAccount is valid
 		res = Tree->retrieve(ToId, ToAccount);
@@ -171,7 +170,7 @@ void Bank::balanceAction(const Transaction* const T) {
 			return;
 		}
 		// increase the balance of the ToAccount
-		ToAccount->adjustBalance(ToFund, 'D', T->Amount, -1);
+		ToAccount->adjustBalance(ToFund, 'D', T.Amount, -1);
 	}
 }
 

@@ -4,7 +4,7 @@
 Account::Account(int Id, string Name) {
 	this->Id = Id;
 	this->Name = Name;
-	CoverFundMatch = new int[4];
+	int CoverFundMatch [4];
 	CoverFundMatch[0] = 1;
 	CoverFundMatch[1] = 0;
 	CoverFundMatch[2] = 3;
@@ -20,7 +20,6 @@ Account::Account(int Id, string Name) {
 }
 
 Account::~Account() {
-	delete[] CoverFundMatch;
 	delete[] Balances;
 	for (auto BalanceHistory : *BalanceHistories)
 		BalanceHistory->clear();
