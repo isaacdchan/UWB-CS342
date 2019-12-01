@@ -9,7 +9,9 @@ Bank::Bank() {
 Bank::~Bank() {
 	delete Tree;
 	*Queue = queue<Bank::Transaction>();
+	delete Queue;
 	Errors->clear();
+	delete Errors;
 }
 
 Bank::Transaction::Transaction(int Account, int ToAccount, string Name, char Action, int Amount) {
@@ -95,7 +97,7 @@ void Bank::logTransaction(const Transaction& T) const {
 }
 
 void Bank::processTransaction(const Transaction& T) {
-	//logTransaction(T);
+	logTransaction(T);
 	if (T.Action == 'O')
 		openAction(T);
 	else if (T.Action == 'H')
@@ -110,7 +112,6 @@ void Bank::openAction(const Transaction& T) {
 	if (!res) {
 		string Error = "ERROR: Account " + to_string(A->getId()) + " is already open. Transaction refused";
 		Errors->push_back(Error);
-		delete A;
 	}
 }
 void Bank::historyAction(const Transaction& T) {
