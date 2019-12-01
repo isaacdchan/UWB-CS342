@@ -27,8 +27,10 @@ bool AccountTree::insert(Account* A) {
 	else {
 		while (Curr != nullptr) {
 			Prev = Curr;
-			if (A->getId() == Curr->Account->getId())
+			if (A->getId() == Curr->Account->getId()) {
+				delete NewNode;
 				return false;
+			}
 			else if (A->getId() < Curr->Account->getId()) {
 				Curr = Curr->Left;
 				Direction = 'L';
