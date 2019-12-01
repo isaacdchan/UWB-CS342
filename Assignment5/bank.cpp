@@ -95,7 +95,7 @@ void Bank::logTransaction(const Transaction& T) const {
 }
 
 void Bank::processTransaction(const Transaction& T) {
-	logTransaction(T);
+	//logTransaction(T);
 	if (T.Action == 'O')
 		openAction(T);
 	else if (T.Action == 'H')
