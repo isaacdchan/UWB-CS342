@@ -18,7 +18,7 @@ private:
 	string Name;
 	// array listing the corresponding cover
 	int* CoverFundMatch;
-	// array of balances representing balance for each fund
+	// array representing balance for each fund
 	int* Balances;
 	// vector of vectors to store history for each fund
 	vector<vector<string>*>* BalanceHistories;

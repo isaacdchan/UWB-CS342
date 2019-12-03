@@ -1,5 +1,6 @@
 #include "accounttree.h"
 
+// Create BST
 AccountTree::AccountTree() {
 	Root = nullptr;
 };
@@ -59,7 +60,7 @@ bool AccountTree::retrieve(const int& AccountId, Account*& Account) const {
 		Node* Curr = s.top();
 
 		if (Curr->Account->getId() == AccountId) {
-			Account = Curr->Account; // set Account*& to point at Curr->Account???
+			Account = Curr->Account;
 			return true;
 		}
 		

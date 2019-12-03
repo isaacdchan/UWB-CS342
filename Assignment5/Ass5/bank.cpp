@@ -97,7 +97,7 @@ void Bank::logTransaction(const Transaction& T) const {
 }
 
 void Bank::processTransaction(const Transaction& T) {
-	logTransaction(T);
+	//logTransaction(T);
 	if (T.Action == 'O')
 		openAction(T);
 	else if (T.Action == 'H')
@@ -139,8 +139,6 @@ void Bank::historyAction(const Transaction& T) {
 		A->displayFund(Fund);
 	}
 }
-//T.Account = -1!!!
-// are transfers between accounts allowed?
 void Bank::balanceAction(const Transaction& T) {
 	int Id = T.Account / 10;
 	int Fund = T.Account % 10;

@@ -39,7 +39,7 @@ public:
 	// converts each line in text file to Transaction object
 	// then pushes transaction to queue
 	void convertTxtToQueue(const string& FileName);
-	// breakds down line string to action, amount, account/fund and other info
+	// breaks down line string to action, amount, account/fund and other info
 	void convertStringToTransaction(string& Line);
 
 	// iterate over queue, handling each transaction

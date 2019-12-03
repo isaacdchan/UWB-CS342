@@ -1,24 +1,28 @@
 #include "account.h"
 #include <string>
 
+// inits Account with the id and the holder's name
 Account::Account(int Id, string Name) {
 	this->Id = Id;
 	this->Name = Name;
+	// array listing the corresponding cover fund
 	int CoverFundMatch [4];
 	CoverFundMatch[0] = 1;
 	CoverFundMatch[1] = 0;
 	CoverFundMatch[2] = 3;
 	CoverFundMatch[3] = 2;
 
+	// array representing balance for each fund
 	Balances = new int [10];
 	for (int i = 0; i < 10; i++)
 		Balances[i] = 0;
-
+	// vector of vectors to store history for each fund
 	BalanceHistories = new vector<vector<string>*>;
 	for (int i = 0; i < 10; i++)
 		BalanceHistories->push_back(new vector<string>);
 }
 
+// deletes CoverFundMatch, Balances, BalanceHistories
 Account::~Account() {
 	delete[] Balances;
 	for (auto BalanceHistory : *BalanceHistories) {
@@ -30,10 +34,12 @@ Account::~Account() {
 	delete BalanceHistories;
 }
 
+// returns account id
 int Account::getId() const {
 	return this->Id;
 }
 
+// checks if fund and coverfund (if exists) has enough for withdraw
 bool Account::isValidTransaction(int Fund, char Action, int Amount) const {
 	// all deposits are valid
 	if (Action == 'D')
@@ -55,7 +61,7 @@ bool Account::isValidTransaction(int Fund, char Action, int Amount) const {
 	return false;
 }
 
-
+// logs transaction in account then adjusts fund balance if valid
 void Account::adjustBalance(int Fund, char Action, int Amount, int ToAccount) {
 	bool IsValid = isValidTransaction(Fund, Action, Amount);
 
@@ -87,6 +93,7 @@ void Account::adjustBalance(int Fund, char Action, int Amount, int ToAccount) {
 
 }
 
+// adds fund transaction to BalanceHistories[Fund]
 void Account::addRecord(int Fund, char Action, int Amount, int ToAccount, bool IsValid) {
 	string Record = "";
 	Record += Action;
@@ -103,6 +110,7 @@ void Account::addRecord(int Fund, char Action, int Amount, int ToAccount, bool I
 	BalanceHistory->push_back(Record);
 }
 
+// lists account name, id, and then balance and balance history for each fund
 void Account::displayAccount() {
 	stringstream ss;
 
@@ -114,6 +122,7 @@ void Account::displayAccount() {
 	cout << ss.str();
 }
 
+// lists each transaction for each fund. failed transactions have "(Failed)" appended
 void Account::displayFund(int Fund) {
 	stringstream ss;
 	ss << "Displaying Transaction History for " << Name << "'s ";
@@ -122,6 +131,7 @@ void Account::displayFund(int Fund) {
 	cout << ss.str();
 }
 
+// lists each transaction for each fund.failed transactions have "(Failed)" appended
 void Account::buildFundHistory(ostream& ss, int Fund) {
 	vector<string>* BalanceHistory = (*BalanceHistories)[Fund];
 

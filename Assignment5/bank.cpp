@@ -1,11 +1,12 @@
 #include "bank.h"
 
+// initializes Queue, Errors, and AccountTree
 Bank::Bank() {
 	Tree = new AccountTree();
 	Queue = new queue<Bank::Transaction>();
 	Errors = new vector<string>;
 };
-
+// deletes Queue, Tree, and Errors
 Bank::~Bank() {
 	delete Tree;
 	*Queue = queue<Bank::Transaction>();
@@ -14,6 +15,7 @@ Bank::~Bank() {
 	delete Errors;
 }
 
+// what each line in input file is converted to for easier processing
 Bank::Transaction::Transaction(int Account, int ToAccount, string Name, char Action, int Amount) {
 	this->Account = Account;
 	this->ToAccount = ToAccount;
@@ -22,13 +24,15 @@ Bank::Transaction::Transaction(int Account, int ToAccount, string Name, char Act
 	this->Amount = Amount;
 }
 
+// converts each line in text file to Transaction object
+// then pushes transaction to queue
 void Bank::convertTxtToQueue(const string & FileName) {
 	ifstream infile(FileName);
 	string Line;
 	for (Line; getline(infile, Line);)
 		convertStringToTransaction(Line);
 }
-
+// breaks down line string to action, amount, account/fund and other info
 void Bank::convertStringToTransaction(string& Line) {
 	string RawLine = Line;
 	char Action = Line[0];
@@ -77,6 +81,7 @@ void Bank::convertStringToTransaction(string& Line) {
 	Queue->push(Transaction(AccountInfo, ToAccount, Name, Action, Amount));
 }
 
+// iterate over queue, handling each transaction
 void Bank::processQueue() {
 	while (!Queue->empty()) {
 		Transaction currTransaction = Queue->front();
@@ -86,6 +91,7 @@ void Bank::processQueue() {
 	}
 }
 
+// helper function to log which transaction the bank is processing
 void Bank::logTransaction(const Transaction& T) const {
 	cout << "Processing Transaction:" << endl;
 	cout << "Action: " << T.Action << endl;
@@ -96,8 +102,9 @@ void Bank::logTransaction(const Transaction& T) const {
 	cout << "-------------" << endl;
 }
 
+// diverts transaction to action handlers
 void Bank::processTransaction(const Transaction& T) {
-	logTransaction(T);
+	//logTransaction(T);
 	if (T.Action == 'O')
 		openAction(T);
 	else if (T.Action == 'H')
@@ -106,6 +113,7 @@ void Bank::processTransaction(const Transaction& T) {
 		balanceAction(T);
 }
 
+// opens new account and inserts into tree
 void Bank::openAction(const Transaction& T) {
 	Account* A = new Account(T.Account, T.Name);
 	bool res = Tree->insert(A);
@@ -115,6 +123,8 @@ void Bank::openAction(const Transaction& T) {
 		Errors->push_back(Error);
 	}
 }
+
+// logs whole account history or specific fund history
 void Bank::historyAction(const Transaction& T) {
 	// asking for whole account history
 	if (T.Account < 10000) {
@@ -139,8 +149,8 @@ void Bank::historyAction(const Transaction& T) {
 		A->displayFund(Fund);
 	}
 }
-//T.Account = -1!!!
-// are transfers between accounts allowed?
+
+// adjusts the balance of an account
 void Bank::balanceAction(const Transaction& T) {
 	int Id = T.Account / 10;
 	int Fund = T.Account % 10;
@@ -177,10 +187,11 @@ void Bank::balanceAction(const Transaction& T) {
 	}
 }
 
+// traverse accounttree, displaying each account
 void Bank::displayAllBankBalances() const {
 	Tree->display();
 }
-
+// lists all account based errors
 void Bank::displayErrors() const {
 	stringstream ss;
 
