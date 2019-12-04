@@ -27,6 +27,7 @@ Bank::Transaction::Transaction(int Account, int ToAccount, string Name, char Act
 // converts each line in text file to Transaction object
 // then pushes transaction to queue
 void Bank::convertTxtToQueue(const string & FileName) {
+	cout << FileName << endl;
 	ifstream infile(FileName);
 	string Line;
 	for (Line; getline(infile, Line);)
