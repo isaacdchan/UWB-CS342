@@ -1,169 +1,153 @@
-Sun Dec  1 12:24:32 PST 2019
+Tue Dec  3 20:40:23 PST 2019
 *** compiling with clang++ to create an executable called myprogram
 clang version 3.8.1-24 (tags/RELEASE_381/final)
 Target: x86_64-pc-linux-gnu
 Thread model: posix
 InstalledDir: /usr/bin
-bank.cpp:28:7: warning: expression result unused [-Wunused-value]
-        for (Line; getline(infile, Line);)
-             ^~~~
-bank.cpp:122:8: warning: unused variable 'res' [-Wunused-variable]
-                bool res = Tree->retrieve(T.Account, A);
-                     ^
-2 warnings generated.
 *** running clang-tidy using options from .clang-tidy
 LLVM (http://llvm.org/):
   LLVM version 3.8.1
-
+  
   Optimized build.
   Built Jun  2 2017 (13:11:29).
   Default target: x86_64-pc-linux-gnu
   Host CPU: ivybridge
-4641 warnings generated.
-9447 warnings generated.
-14431 warnings generated.
-19099 warnings generated.
-/home/NETID/eyesack/U/CS342/Assignment5/accounttree.cpp:34:4: warning: don't use else after return [readability-else-after-return]
+/home/NETID/eyesack/U/CS342/Assignment5/accounttree.cpp:35:4: warning: don't use else after return [readability-else-after-return]
                         else if (A->getId() < Curr->Account->getId()) {
                         ^
-/home/NETID/eyesack/U/CS342/Assignment5/bank.cpp:28:7: warning: expression result unused [clang-diagnostic-unused-value]
+/home/NETID/eyesack/U/CS342/Assignment5/bank.cpp:33:7: warning: expression result unused [clang-diagnostic-unused-value]
         for (Line; getline(infile, Line);)
              ^
-/home/NETID/eyesack/U/CS342/Assignment5/bank.cpp:56:4: warning: Value stored to 'AccountInfo' is never read [clang-analyzer-deadcode.DeadStores]
+/home/NETID/eyesack/U/CS342/Assignment5/bank.cpp:61:4: warning: Value stored to 'AccountInfo' is never read [clang-analyzer-deadcode.DeadStores]
                         AccountInfo = stoi(Line.substr(0, Line.size()));
                         ^
-/home/NETID/eyesack/U/CS342/Assignment5/bank.cpp:56:4: note: Value stored to 'AccountInfo' is never read
+/home/NETID/eyesack/U/CS342/Assignment5/bank.cpp:61:4: note: Value stored to 'AccountInfo' is never read
                         AccountInfo = stoi(Line.substr(0, Line.size()));
                         ^
-/home/NETID/eyesack/U/CS342/Assignment5/bank.cpp:59:4: warning: Value stored to 'AccountInfo' is never read [clang-analyzer-deadcode.DeadStores]
+/home/NETID/eyesack/U/CS342/Assignment5/bank.cpp:64:4: warning: Value stored to 'AccountInfo' is never read [clang-analyzer-deadcode.DeadStores]
                         AccountInfo = stoi(Line.substr(0, Line.size()));
                         ^
-/home/NETID/eyesack/U/CS342/Assignment5/bank.cpp:59:4: note: Value stored to 'AccountInfo' is never read
+/home/NETID/eyesack/U/CS342/Assignment5/bank.cpp:64:4: note: Value stored to 'AccountInfo' is never read
                         AccountInfo = stoi(Line.substr(0, Line.size()));
                         ^
-/home/NETID/eyesack/U/CS342/Assignment5/bank.cpp:122:8: warning: Value stored to 'res' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
+/home/NETID/eyesack/U/CS342/Assignment5/bank.cpp:133:8: warning: Value stored to 'res' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
                 bool res = Tree->retrieve(T.Account, A);
                      ^
-/home/NETID/eyesack/U/CS342/Assignment5/bank.cpp:122:8: note: Value stored to 'res' during its initialization is never read
+/home/NETID/eyesack/U/CS342/Assignment5/bank.cpp:133:8: note: Value stored to 'res' during its initialization is never read
                 bool res = Tree->retrieve(T.Account, A);
                      ^
-Suppressed 19094 warnings (19094 in non-user code).
-Use -header-filter=.* to display errors from all non-system headers.
 *** running myprogram
 *** running with valgrind
-==24250== Memcheck, a memory error detector
-==24250== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
-==24250== Using Valgrind-3.12.0.SVN and LibVEX; rerun with -h for copyright info
-==24250== Command: ./myprogram BankTransIn.txt
-==24250==
 The command line argument(s) was BankTransIn.txt
+BankTransIn.txt
 Displaying Transaction History for Cash Johnny (ID: 1001) by Fund
 Money Market: $470
-        D $542
-        W $72
+	D $542
+	W $72
 Prime MoneyMarket: $3042
-        D $1542
-        D $1500
+	D $1542
+	D $1500
 Long-Term Bond: $10442
-        D $5442
-        D $5000
+	D $5442
+	D $5000
 Short-Term Bond: $14540
-        D $7540
-        D $7000
+	D $7540
+	D $7000
 500 Index Fund: $0
 Capital Value Fund: $54
-        D $54
+	D $54
 Growth Equity Fund: $15053
-        D $7542
-        D $7576
-        W $65
+	D $7542
+	D $7576
+	W $65
 Growth Index Fund: $10931
-        D $5442
-        D $6543
-        W $1000
-        T $54 10015
-        W $20000 (Failed)
+	D $5442
+	D $6543
+	W $1000
+	T $54 10015
+	W $20000 (Failed)
 Value Fund: $0
 Value Stock Index: $0
 Displaying Transaction History for Williams Hank's 500 Index Fund: $10000
-        D $10000
+	D $10000
 Displaying Transaction History for Williams Hank (ID: 1253) by Fund
 Money Market: $10000
-        D $10000
+	D $10000
 Prime MoneyMarket: $10000
-        D $10000
+	D $10000
 Long-Term Bond: $0
-        D $10000
-        W $10000
+	D $10000
+	W $10000
 Short-Term Bond: $5000
-        D $10000
-        W $5000
+	D $10000
+	W $5000
 500 Index Fund: $10000
-        D $10000
+	D $10000
 Capital Value Fund: $10000
-        D $10000
+	D $10000
 Growth Equity Fund: $10000
-        D $10000
+	D $10000
 Growth Index Fund: $10000
-        D $10000
+	D $10000
 Value Fund: $10000
-        D $10000
+	D $10000
 Value Stock Index: $10000
-        D $10000
+	D $10000
 ERROR: Could not find Account 1253. Transfer cancelled
 ERROR: Account 9876 is already open. Transaction refused
+C:/Users/isaac/Documents/UW Bothell/CS342/Assignment5/BankTransIn.txt
 Displaying Transaction History for Cash Johnny (ID: 1001) by Fund
 Money Market: $470
-        D $542
-        W $72
+	D $542
+	W $72
 Prime MoneyMarket: $3042
-        D $1542
-        D $1500
+	D $1542
+	D $1500
 Long-Term Bond: $10442
-        D $5442
-        D $5000
+	D $5442
+	D $5000
 Short-Term Bond: $14540
-        D $7540
-        D $7000
+	D $7540
+	D $7000
 500 Index Fund: $0
 Capital Value Fund: $54
-        D $54
+	D $54
 Growth Equity Fund: $15053
-        D $7542
-        D $7576
-        W $65
+	D $7542
+	D $7576
+	W $65
 Growth Index Fund: $10931
-        D $5442
-        D $6543
-        W $1000
-        T $54 10015
-        W $20000 (Failed)
+	D $5442
+	D $6543
+	W $1000
+	T $54 10015
+	W $20000 (Failed)
 Value Fund: $0
 Value Stock Index: $0
 Displaying Transaction History for Williams Hank (ID: 1253) by Fund
 Money Market: $10000
-        D $10000
+	D $10000
 Prime MoneyMarket: $10000
-        D $10000
+	D $10000
 Long-Term Bond: $0
-        D $10000
-        W $10000
+	D $10000
+	W $10000
 Short-Term Bond: $5000
-        D $10000
-        W $5000
+	D $10000
+	W $5000
 500 Index Fund: $10000
-        D $10000
+	D $10000
 Capital Value Fund: $10000
-        D $10000
+	D $10000
 Growth Equity Fund: $10000
-        D $10000
+	D $10000
 Growth Index Fund: $10000
-        D $10000
+	D $10000
 Value Fund: $10000
-        D $10000
+	D $10000
 Value Stock Index: $9235
-        D $10000
-        T $765 43567
+	D $10000
+	T $765 43567
 Displaying Transaction History for Nelson Willie (ID: 9876) by Fund
 Money Market: $0
 Prime MoneyMarket: $0
@@ -178,13 +162,5 @@ Value Stock Index: $0
 ERROR: Could not find Account 1253. Transfer cancelled
 ERROR: Account 9876 is already open. Transaction refused
 Done
-==24250==
-==24250== HEAP SUMMARY:
-==24250==     in use at exit: 0 bytes in 0 blocks
-==24250==   total heap usage: 328 allocs, 328 frees, 141,443 bytes allocated
-==24250==
-==24250== All heap blocks were freed -- no leaks are possible
-==24250==
-==24250== For counts of detected and suppressed errors, rerun with: -v
-==24250== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 *** cleaning up, deleting myprogram
+Tue Dec  3 20:40:38 PST 2019
